@@ -49,7 +49,7 @@ Available properties:
 | readOnly | `boolean` | Disable input  | `true`
 | isOpen | `boolean` | Show picker  | `false`
 | icon | `boolean` | Show calendar icon  | `false`
-| daysOfWeek | `array` | Days order in a week  | `['Sun','Mon','Tue',\n 'Wed','Thu','Fri','Sat']`
+| daysOfWeek | `array` | Days order in a week  | `['Sun','Mon','Tue', '...']`
 | translations | `JSON` | {DATE:"Date", TIMES:"Times", DAYS_MON:"Mon", MONTHS_OCTOBER:"October"}  | `{}`
 | style | `JSON` | Container style  | `undefined`
 | className | `string` | Container class  | `r-input-group`
