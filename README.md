@@ -1,4 +1,4 @@
-# react-input-moment
+# react-moment-input
 
 React datetime picker powered by [momentjs](http://momentjs.com)
 

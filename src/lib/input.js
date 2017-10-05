@@ -2,7 +2,10 @@ import React from 'react';
 
 import InputMask from 'react-input-mask';
 
-function setMask(format) {
+function setMask(format, readOnly) {
+    if(readOnly)
+        return "";
+
     const reg = new RegExp("y|m|d|h|s", "g");
     return format.toLowerCase().replace(reg, "9");
 }
@@ -16,7 +19,7 @@ export default ({defaults, onClick, onTextChange, className, style}) => (
             value={defaults.value}
             onClick={!defaults.icon ? onClick: null}
             onChange={onTextChange}
-            mask={setMask(defaults.format)}
+            mask={setMask(defaults.format, defaults.readOnly)}
             readOnly={defaults.readOnly}/>
         {defaults.icon && <div style={{cursor:'pointer', width: 'auto', display: 'table-cell', position: 'relative'}} className="r-input-group-addon" onClick={onClick}><i className="fa fa-calendar" /></div>}
     </div>
