@@ -1,12 +1,22 @@
-import React from 'react';
+"use strict";
 
-export default (function (_ref) {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (_ref) {
     var activeTab = _ref.activeTab,
         onActiveTab = _ref.onActiveTab;
-    return React.createElement(
+    return _react2.default.createElement(
         "div",
         { className: "options" },
-        React.createElement(
+        _react2.default.createElement(
             "button",
             {
                 className: "ion-ios-calendar im-btn" + (activeTab === 0 || activeTab === 2 ? " is-active" : ""),
@@ -15,7 +25,7 @@ export default (function (_ref) {
                 } },
             "Date"
         ),
-        React.createElement(
+        _react2.default.createElement(
             "button",
             {
                 className: "ion-ios-clock im-btn" + (activeTab === 1 ? " is-active" : ""),
@@ -25,4 +35,4 @@ export default (function (_ref) {
             "Time"
         )
     );
-});
+};

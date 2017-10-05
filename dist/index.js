@@ -1,4 +1,49 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.MomentInput = undefined;
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _date = require('./date');
+
+var _date2 = _interopRequireDefault(_date);
+
+var _year = require('./year');
+
+var _year2 = _interopRequireDefault(_year);
+
+var _time = require('./time');
+
+var _time2 = _interopRequireDefault(_time);
+
+var _options = require('./options');
+
+var _options2 = _interopRequireDefault(_options);
+
+var _input = require('./input');
+
+var _input2 = _interopRequireDefault(_input);
+
+require('./css/style.css');
+
+require('ionicons/dist/css/ionicons.min.css');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6,21 +51,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-
-import DatePicker from './date';
-import YearPicker from './year';
-import TimePicker from './time';
-import Options from './options';
-import Input from './input';
-
-import '../css/style.css';
-import 'ionicons/dist/css/ionicons.min.css';
-
 var _mapper = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-export var MomentInput = function (_Component) {
+
+var MomentInput = exports.MomentInput = function (_Component) {
     _inherits(MomentInput, _Component);
 
     function MomentInput(props) {
@@ -29,7 +62,7 @@ export var MomentInput = function (_Component) {
         var _this = _possibleConstructorReturn(this, (MomentInput.__proto__ || Object.getPrototypeOf(MomentInput)).call(this, props));
 
         _this.state = {
-            selected: (props.value || moment()).clone(),
+            selected: (props.value || (0, _moment2.default)()).clone(),
             activeTab: props.tab,
             date: props.value,
             textValue: "",
@@ -146,7 +179,7 @@ export var MomentInput = function (_Component) {
                 max = _props3.max,
                 format = _props3.format;
 
-            var item = moment(val, format, true);
+            var item = (0, _moment2.default)(val, format, true);
             if (!item.isValid() || !this.isValid(min, max, item, val, false)) return this.setState({ textValue: val, date: null, isValid: false });
 
             if (onChange) onChange(item, name);
@@ -166,12 +199,12 @@ export var MomentInput = function (_Component) {
 
             switch (activeTab) {
                 case 1:
-                    return React.createElement(TimePicker, {
+                    return _react2.default.createElement(_time2.default, {
                         selected: selected,
                         onSetTime: this.onSetTime
                     });
                 case 2:
-                    return React.createElement(YearPicker, {
+                    return _react2.default.createElement(_year2.default, {
                         defaults: { selected: selected, min: min, max: max, date: date, years: this.Years },
                         add: this.add,
                         onActiveTab: this.onActiveTab,
@@ -179,7 +212,7 @@ export var MomentInput = function (_Component) {
                         isDisabled: this.isDisabled
                     });
                 default:
-                    return React.createElement(DatePicker, {
+                    return _react2.default.createElement(_date2.default, {
                         defaults: { selected: selected, min: min, max: max, date: date, days: this.Days, months: _mapper },
                         add: this.add,
                         onActiveTab: this.onActiveTab,
@@ -214,26 +247,26 @@ export var MomentInput = function (_Component) {
 
             var inputValue = onSave && value ? value.format(format) : date ? date.format(format) : "";
 
-            return React.createElement(
+            return _react2.default.createElement(
                 'div',
                 { style: style, className: className },
-                React.createElement(Input, {
+                _react2.default.createElement(_input2.default, {
                     defaults: { readOnly: readOnly, isValid: isValid, format: format, value: inputValue || textValue },
                     onClick: this.inputClick,
                     onTextChange: this.onTextChange,
-                    inputClassName: inputClassName,
-                    inputStyle: inputStyle
+                    className: inputClassName,
+                    style: inputStyle
                 }),
-                isOpen && React.createElement(
+                isOpen && _react2.default.createElement(
                     'div',
                     { className: 'm-input-moment', style: { position: "absolute", backgroundColor: "white", zIndex: 99 } },
-                    options && React.createElement(Options, { activeTab: activeTab, onActiveTab: this.onActiveTab }),
-                    React.createElement(
+                    options && _react2.default.createElement(_options2.default, { activeTab: activeTab, onActiveTab: this.onActiveTab }),
+                    _react2.default.createElement(
                         'div',
                         { className: 'tabs' },
                         this.renderTab()
                     ),
-                    onSave && React.createElement(
+                    onSave && _react2.default.createElement(
                         'button',
                         { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
                                 _this2.setState({ isOpen: false });onSave(date || selected, name);
@@ -291,7 +324,7 @@ export var MomentInput = function (_Component) {
     }]);
 
     return MomentInput;
-}(Component);
+}(_react.Component);
 
 MomentInput.defaultProps = {
     tab: 0,
@@ -303,22 +336,22 @@ MomentInput.defaultProps = {
 };
 
 MomentInput.propTypes = {
-    name: PropTypes.string,
-    format: PropTypes.string,
-    readOnly: PropTypes.bool,
-    min: PropTypes.instanceOf(moment),
-    max: PropTypes.instanceOf(moment),
-    options: PropTypes.bool,
-    tab: PropTypes.number,
-    isOpen: PropTypes.bool,
-    onSave: PropTypes.func,
-    onClose: PropTypes.func,
-    onChange: PropTypes.func,
-    value: PropTypes.instanceOf(moment),
-    style: PropTypes.object,
-    className: PropTypes.string,
-    inputClassName: PropTypes.string,
-    inputStyle: PropTypes.object
+    name: _propTypes2.default.string,
+    format: _propTypes2.default.string,
+    readOnly: _propTypes2.default.bool,
+    min: _propTypes2.default.instanceOf(_moment2.default),
+    max: _propTypes2.default.instanceOf(_moment2.default),
+    options: _propTypes2.default.bool,
+    tab: _propTypes2.default.number,
+    isOpen: _propTypes2.default.bool,
+    onSave: _propTypes2.default.func,
+    onClose: _propTypes2.default.func,
+    onChange: _propTypes2.default.func,
+    value: _propTypes2.default.instanceOf(_moment2.default),
+    style: _propTypes2.default.object,
+    className: _propTypes2.default.string,
+    inputClassName: _propTypes2.default.string,
+    inputStyle: _propTypes2.default.object
 };
 
-export default MomentInput;
+exports.default = MomentInput;

@@ -1,52 +1,65 @@
-import React from 'react';
-import InputSlider from 'react-input-slider';
+'use strict';
 
-export default (function (_ref) {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactInputSlider = require('react-input-slider');
+
+var _reactInputSlider2 = _interopRequireDefault(_reactInputSlider);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (_ref) {
     var selected = _ref.selected,
         onSetTime = _ref.onSetTime;
-    return React.createElement(
+    return _react2.default.createElement(
         'div',
         { className: 'm-time tab-m is-active', style: { paddingBottom: "10px" } },
-        React.createElement(
+        _react2.default.createElement(
             'div',
             { className: 'showtime' },
-            React.createElement(
+            _react2.default.createElement(
                 'span',
                 { className: 'time' },
                 selected.format("HH")
             ),
-            React.createElement(
+            _react2.default.createElement(
                 'span',
                 { className: 'separater' },
                 ':'
             ),
-            React.createElement(
+            _react2.default.createElement(
                 'span',
                 { className: 'time' },
                 selected.format("mm")
             )
         ),
-        React.createElement(
+        _react2.default.createElement(
             'div',
             { className: 'sliders' },
-            React.createElement(
+            _react2.default.createElement(
                 'div',
                 { className: 'time-text' },
                 'Hours:'
             ),
-            React.createElement(InputSlider, {
+            _react2.default.createElement(_reactInputSlider2.default, {
                 className: 'u-slider u-slider-x u-slider-time',
                 axis: 'x',
                 x: Number(selected.format('HH')),
                 xmax: 23,
                 onChange: onSetTime('hours')
             }),
-            React.createElement(
+            _react2.default.createElement(
                 'div',
                 { className: 'time-text' },
                 'Minutes:'
             ),
-            React.createElement(InputSlider, {
+            _react2.default.createElement(_reactInputSlider2.default, {
                 className: 'u-slider u-slider-x u-slider-time',
                 axis: 'x',
                 x: Number(selected.format('mm')),
@@ -55,4 +68,4 @@ export default (function (_ref) {
             })
         )
     );
-});
+};

@@ -8,7 +8,7 @@ import TimePicker from './time';
 import Options from './options';
 import Input from './input';
 
-import '../css/style.css'
+import './css/style.css'
 import 'ionicons/dist/css/ionicons.min.css'
 
 const _mapper = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -208,8 +208,8 @@ export class MomentInput extends Component {
                     defaults={{readOnly, isValid, format, value:(inputValue || textValue)}}
                     onClick={this.inputClick}
                     onTextChange={this.onTextChange}
-                    inputClassName={inputClassName}
-                    inputStyle={inputStyle}
+                    className={inputClassName}
+                    style={inputStyle}
                 />
                 {isOpen &&
                 <div className="m-input-moment" style={{position:"absolute", backgroundColor:"white", zIndex:99}}>
