@@ -17,5 +17,21 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "react-moment-input",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/kenanberbic/react-moment-input.git"
+  },
+  "keywords": [
+    "react",
+    "moment",
+    "input",
+    "datapicker"
+  ],
+  "author": "Kenan Berbic <berbic_16@hotmail.com>, Tarik Kaldzija",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/kenanberbic/react-moment-input#readme"
 }
