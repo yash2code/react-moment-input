@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({defaults, add, onActiveTab, onClick, isDisabled}) => (
-    <div className="m-calendar tab-m is-active">
+    <div className="r-calendar tab-m is-active">
         <div className="toolbar">
             <button className="prev-month" onClick={add(-12,'year')}>
                 <i className="ion-md-arrow-dropleft"></i>

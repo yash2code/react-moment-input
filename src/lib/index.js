@@ -10,12 +10,14 @@ import Input from './input';
 
 import './css/style.css'
 import 'ionicons/dist/css/ionicons.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 
 const _mapper = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 export class MomentInput extends Component {
     constructor(props) {
         super(props);
 
+        this._id = Math.random().toString();
         this.state = {
             selected: (props.value || moment()).clone(),
             activeTab: props.tab,
@@ -102,7 +104,7 @@ export class MomentInput extends Component {
 
     onClose(e) {
         const {onClose, name} = this.props;
-        let inputMoment = e.path && e.path.find(x => x.className === "m-input-moment");
+        let inputMoment = e.path && e.path.find(x => x.id === this._id);
         if (inputMoment)
             return;
 
@@ -198,21 +200,21 @@ export class MomentInput extends Component {
     }
 
     render() {
-        const { options, onSave, value, style, className, inputClassName, inputStyle, name, readOnly, format} = this.props;
+        const { options, onSave, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
         let inputValue = (onSave && value) ? value.format(format) : (date ? date.format(format) : "");
 
         return (
             <div style={style} className={className}>
                 <Input
-                    defaults={{readOnly, isValid, format, value:(inputValue || textValue)}}
+                    defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue)}}
                     onClick={this.inputClick}
                     onTextChange={this.onTextChange}
                     className={inputClassName}
                     style={inputStyle}
                 />
                 {isOpen &&
-                <div className="m-input-moment" style={{position:"absolute", backgroundColor:"white", zIndex:99}}>
+                <div className="r-input-moment" id={this._id}>
                     {options && <Options activeTab={activeTab} onActiveTab={this.onActiveTab} />}
                     <div className="tabs">
                         {this.renderTab()}
@@ -229,6 +231,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly:true,
+    icon:false,
     format:"YYYY-MM-DD HH:mm",
     inputClassName:"form-control"
 };
@@ -237,6 +240,7 @@ MomentInput.propTypes = {
     name: PropTypes.string,
     format: PropTypes.string,
     readOnly: PropTypes.bool,
+    icon: PropTypes.bool,
     min: PropTypes.instanceOf(moment),
     max: PropTypes.instanceOf(moment),
     options: PropTypes.bool,

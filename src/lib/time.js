@@ -2,7 +2,7 @@ import React from 'react';
 import InputSlider from 'react-input-slider';
 
 export default ({selected, onSetTime}) => (
-    <div className="m-time tab-m is-active" style={{paddingBottom:"10px"}}>
+    <div className="r-time tab-m is-active" style={{paddingBottom:"10px"}}>
         <div className="showtime">
             <span className="time">{selected.format("HH")}</span>
             <span className="separater">:</span>

@@ -14,9 +14,10 @@ export default ({defaults, onClick, onTextChange, className, style}) => (
             style={style}
             placeholder={defaults.format}
             value={defaults.value}
-            onClick={onClick}
+            onClick={!defaults.icon ? onClick: null}
             onChange={onTextChange}
             mask={setMask(defaults.format)}
             readOnly={defaults.readOnly}/>
+        {defaults.icon && <i style={{marginLeft:'2px', cursor:'pointer'}} className="fa fa-calendar" onClick={onClick}></i>}
     </div>
 );
