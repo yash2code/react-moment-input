@@ -38,9 +38,10 @@ Available properties:
 | readOnly | `boolean` | Disable input  | `true`
 | isOpen | `boolean` | Show picker  | `false`
 | icon | `boolean` | Show calendar icon  | `false`
-| style | `object` | Container style  | `undefined`
+| translations | `JSON` | {DATE:"Date", TIMES:"Times", DAYS_MON:"Mon", MONTHS_OCTOBER:"October"}  | `{}`
+| style | `JSON` | Container style  | `undefined`
 | className | `string` | Container class  | `r-input-group`
-| inputStyle | `object` | Input style  | `undefined`
+| inputStyle | `JSON` | Input style  | `undefined`
 | inputClassName | `string` | Input class | `r-input`
 | onChange | `function` | Emit value on every click (value, name) | `undefined`
 | onSave | `function` | Emit value on save click (value, name)  | `undefined`

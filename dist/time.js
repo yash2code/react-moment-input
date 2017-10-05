@@ -16,7 +16,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (_ref) {
     var selected = _ref.selected,
-        onSetTime = _ref.onSetTime;
+        onSetTime = _ref.onSetTime,
+        translations = _ref.translations;
     return _react2.default.createElement(
         'div',
         { className: 'r-time tab-m is-active', style: { paddingBottom: "10px" } },
@@ -45,7 +46,8 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 'div',
                 { className: 'time-text' },
-                'Hours:'
+                translations.HOURS || "Hours",
+                ':'
             ),
             _react2.default.createElement(_reactInputSlider2.default, {
                 className: 'u-slider u-slider-x u-slider-time',
@@ -57,7 +59,8 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 'div',
                 { className: 'time-text' },
-                'Minutes:'
+                translations.MINUTES || "Minutes",
+                ':'
             ),
             _react2.default.createElement(_reactInputSlider2.default, {
                 className: 'u-slider u-slider-x u-slider-time',

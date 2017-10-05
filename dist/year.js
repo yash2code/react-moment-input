@@ -15,7 +15,8 @@ exports.default = function (_ref) {
         add = _ref.add,
         onActiveTab = _ref.onActiveTab,
         _onClick = _ref.onClick,
-        isDisabled = _ref.isDisabled;
+        isDisabled = _ref.isDisabled,
+        translations = _ref.translations;
     return _react2.default.createElement(
         "div",
         { className: "r-calendar tab-m is-active" },
@@ -29,15 +30,20 @@ exports.default = function (_ref) {
             ),
             _react2.default.createElement(
                 "span",
-                { className: "current-date", style: { cursor: 'pointer' }, onClick: function onClick() {
-                        onActiveTab(0);
-                    } },
-                "Years"
+                { className: "current-date", style: { marginRight: "-5px" } },
+                translations.YEARS || "Years"
             ),
             _react2.default.createElement(
                 "button",
                 { className: "next-month", onClick: add(12, 'year') },
                 _react2.default.createElement("i", { className: "ion-md-arrow-dropright" })
+            ),
+            _react2.default.createElement(
+                "button",
+                { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick() {
+                        onActiveTab(0);
+                    } },
+                _react2.default.createElement("i", { className: "ion-ios-barcode-outline" })
             )
         ),
         _react2.default.createElement(
@@ -54,7 +60,7 @@ exports.default = function (_ref) {
                             return _react2.default.createElement(
                                 "td",
                                 { key: index + "" + iIndex,
-                                    className: isDisabled(defaults.min, defaults.max, defaults.selected.clone().year(x), defaults.date, x, true),
+                                    className: isDisabled(defaults.min, defaults.max, defaults.selected.clone().year(x), defaults.date, x, false),
                                     onClick: function onClick() {
                                         return _onClick(defaults.selected.clone().year(x));
                                     }

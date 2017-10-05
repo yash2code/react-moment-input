@@ -46,8 +46,11 @@ export class MomentInput extends Component {
     }
 
     onDayClick(date) {
-        this.setState({date, isValid: true});
+        const {min, max, format} = this.props;
+        if (!this.isValid(min,max, date, date.format(format), false, "day"))
+            return;
 
+        this.setState({date, isValid: true});
         if (this.props.onChange)
             this.props.onChange(date, this.props.name);
     }
@@ -59,6 +62,12 @@ export class MomentInput extends Component {
     onSetTime(type) {
         const self = this;
         return function ({x}) {
+            self.state.selected.set(type, x);
+
+           /* const {min, max, format} = self.props;
+            if (!self.isValid(min,max, self.state.selected, self.state.selected.format(format), false, "minutes"))
+                return self.setState({isValid: false});*/
+
             if (self.state.date) {
                 self.state.date.set(type, x);
 
@@ -67,7 +76,7 @@ export class MomentInput extends Component {
             }
 
             self.setState({
-                selected: self.state.selected.set(type, x),
+                selected: self.state.selected,
                 date: self.state.date,
                 isValid: self.state.date ? true : self.state.isValid
             });
@@ -75,7 +84,7 @@ export class MomentInput extends Component {
     }
 
     isDisabled(min, max, selected, date, value, isYear) {
-        if (!this.isValid(min,max, selected, value, isYear))
+        if (!this.isValid(min,max, selected, value, isYear, "day"))
             return "disabled-day";
         else if (date && (selected.format("YYYY-MM-DD") === date.format("YYYY-MM-DD") ||
             (isYear && selected.format("YYYY") === date.format("YYYY"))))
@@ -84,8 +93,8 @@ export class MomentInput extends Component {
             return "";
     }
 
-    isValid(min, max, selected, value, isYear){
-        return !(!isYear && (value==="" || (min && selected.diff(min, 'day') < 0) || (max && selected.diff(max, 'day')>0)))
+    isValid(min, max, selected, value, isYear, type = "day"){
+        return !(!isYear && (value==="" || (min && selected.diff(min, type) < 0) || (max && selected.diff(max, type)>0)))
     }
 
     inputClick(e) {
@@ -162,7 +171,7 @@ export class MomentInput extends Component {
         let val = e.target.value;
         const {onChange, name, min, max, format} = this.props;
         let item = moment(val, format, true);
-        if (!item.isValid() || !this.isValid(min, max, item, val, false))
+        if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes"))
             return this.setState({textValue: val, date: null, isValid: false});
 
         if (onChange)
@@ -172,13 +181,14 @@ export class MomentInput extends Component {
     }
 
     renderTab(){
-        const {min, max} = this.props;
+        const {min, max, translations} = this.props;
         const {selected, activeTab, date} = this.state;
         switch (activeTab){
             case 1:
                 return (<TimePicker
                     selected={selected}
                     onSetTime={this.onSetTime}
+                    translations={translations}
                 />);
             case 2:
                 return (<YearPicker
@@ -187,6 +197,7 @@ export class MomentInput extends Component {
                     onActiveTab={this.onActiveTab}
                     onClick={this.onDayClick}
                     isDisabled={this.isDisabled}
+                    translations={translations}
                 />);
             default:
                 return (<DatePicker
@@ -195,12 +206,13 @@ export class MomentInput extends Component {
                     onActiveTab={this.onActiveTab}
                     onClick={this.onDayClick}
                     isDisabled={this.isDisabled}
+                    translations={translations}
                 />)
         }
     }
 
     render() {
-        const { options, onSave, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon} = this.props;
+        const { options, onSave, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
         let inputValue = (onSave && value) ? value.format(format) : (date ? date.format(format) : "");
 
@@ -215,7 +227,10 @@ export class MomentInput extends Component {
                 />
                 {isOpen &&
                 <div className="r-input-moment" id={this._id}>
-                    {options && <Options activeTab={activeTab} onActiveTab={this.onActiveTab} />}
+                    {options && <Options
+                        activeTab={activeTab}
+                        onActiveTab={this.onActiveTab}
+                        translations={translations} />}
                     <div className="tabs">
                         {this.renderTab()}
                     </div>
@@ -231,6 +246,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly:true,
+    translations: {},
     icon:false,
     format:"YYYY-MM-DD HH:mm",
     inputClassName:"r-input"
@@ -240,6 +256,7 @@ MomentInput.propTypes = {
     name: PropTypes.string,
     format: PropTypes.string,
     readOnly: PropTypes.bool,
+    translations: PropTypes.object,
     icon: PropTypes.bool,
     min: PropTypes.instanceOf(moment),
     max: PropTypes.instanceOf(moment),

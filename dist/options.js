@@ -12,7 +12,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (_ref) {
     var activeTab = _ref.activeTab,
-        onActiveTab = _ref.onActiveTab;
+        onActiveTab = _ref.onActiveTab,
+        translations = _ref.translations;
     return _react2.default.createElement(
         "div",
         { className: "options" },
@@ -23,7 +24,7 @@ exports.default = function (_ref) {
                 onClick: function onClick() {
                     onActiveTab(0);
                 } },
-            "Date"
+            translations.DATE || "Date"
         ),
         _react2.default.createElement(
             "button",
@@ -32,7 +33,7 @@ exports.default = function (_ref) {
                 onClick: function onClick() {
                     onActiveTab(1);
                 } },
-            "Time"
+            translations.TIME || "Time"
         )
     );
 };

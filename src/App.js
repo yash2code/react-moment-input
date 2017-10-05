@@ -32,12 +32,13 @@ class App extends Component {
           </div>
           <div style={{display: "table", margin:"0 auto"}}>
               <p className="App-intro">
-                  Min and max date
+                  Min and max date 2019-10-05 22:45
               </p>
               <MomentInput
-                  max={moment().add(5,'days')}
+                  max={moment("2019-10-05 22:45")}
                   min={moment()}
                   format="YYYY-MM-DD HH:mm"
+                  translations={{HOURS:"Sati", MINUTES:"Minute",YEARS:"Godine", DATE:"Dani", TIME:"Vrijeme", MONTHS_OCTOBER:"Oktobar", DAYS_MON:"PON"}}
                   options={true}
                   readOnly={false}
                   icon={true}
@@ -48,8 +49,6 @@ class App extends Component {
                   Input disabled
               </p>
               <MomentInput
-                  max={moment().add(5,'days')}
-                  min={moment()}
                   format="YYYY-MM-DD HH:mm"
                   options={true}
                   readOnly={true}

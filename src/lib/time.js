@@ -1,7 +1,7 @@
 import React from 'react';
 import InputSlider from 'react-input-slider';
 
-export default ({selected, onSetTime}) => (
+export default ({selected, onSetTime, translations}) => (
     <div className="r-time tab-m is-active" style={{paddingBottom:"10px"}}>
         <div className="showtime">
             <span className="time">{selected.format("HH")}</span>
@@ -10,7 +10,7 @@ export default ({selected, onSetTime}) => (
         </div>
         <div className="sliders">
             <div className="time-text">
-                Hours:
+                {translations.HOURS || "Hours"}:
             </div>
             <InputSlider
                 className="u-slider u-slider-x u-slider-time"
@@ -20,7 +20,7 @@ export default ({selected, onSetTime}) => (
                 onChange={onSetTime('hours')}
             />
             <div className="time-text">
-                Minutes:
+                {translations.MINUTES || "Minutes"}:
             </div>
             <InputSlider
                 className="u-slider u-slider-x u-slider-time"

@@ -96,8 +96,14 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'onDayClick',
         value: function onDayClick(date) {
-            this.setState({ date: date, isValid: true });
+            var _props = this.props,
+                min = _props.min,
+                max = _props.max,
+                format = _props.format;
 
+            if (!this.isValid(min, max, date, date.format(format), false, "day")) return;
+
+            this.setState({ date: date, isValid: true });
             if (this.props.onChange) this.props.onChange(date, this.props.name);
         }
     }, {
@@ -112,6 +118,12 @@ var MomentInput = exports.MomentInput = function (_Component) {
             return function (_ref) {
                 var x = _ref.x;
 
+                self.state.selected.set(type, x);
+
+                /* const {min, max, format} = self.props;
+                 if (!self.isValid(min,max, self.state.selected, self.state.selected.format(format), false, "minutes"))
+                     return self.setState({isValid: false});*/
+
                 if (self.state.date) {
                     self.state.date.set(type, x);
 
@@ -119,7 +131,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 }
 
                 self.setState({
-                    selected: self.state.selected.set(type, x),
+                    selected: self.state.selected,
                     date: self.state.date,
                     isValid: self.state.date ? true : self.state.isValid
                 });
@@ -128,12 +140,14 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'isDisabled',
         value: function isDisabled(min, max, selected, date, value, isYear) {
-            if (!this.isValid(min, max, selected, value, isYear)) return "disabled-day";else if (date && (selected.format("YYYY-MM-DD") === date.format("YYYY-MM-DD") || isYear && selected.format("YYYY") === date.format("YYYY"))) return "selected-day";else return "";
+            if (!this.isValid(min, max, selected, value, isYear, "day")) return "disabled-day";else if (date && (selected.format("YYYY-MM-DD") === date.format("YYYY-MM-DD") || isYear && selected.format("YYYY") === date.format("YYYY"))) return "selected-day";else return "";
         }
     }, {
         key: 'isValid',
         value: function isValid(min, max, selected, value, isYear) {
-            return !(!isYear && (value === "" || min && selected.diff(min, 'day') < 0 || max && selected.diff(max, 'day') > 0));
+            var type = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "day";
+
+            return !(!isYear && (value === "" || min && selected.diff(min, type) < 0 || max && selected.diff(max, type) > 0));
         }
     }, {
         key: 'inputClick',
@@ -144,9 +158,9 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
             if (isOpen) return window.removeEventListener('click', this.onClose);
 
-            var _props = this.props,
-                onChange = _props.onChange,
-                onClose = _props.onClose;
+            var _props2 = this.props,
+                onChange = _props2.onChange,
+                onClose = _props2.onClose;
 
             if (onChange || onClose) window.addEventListener('click', this.onClose);
 
@@ -157,9 +171,9 @@ var MomentInput = exports.MomentInput = function (_Component) {
         value: function onClose(e) {
             var _this2 = this;
 
-            var _props2 = this.props,
-                onClose = _props2.onClose,
-                name = _props2.name;
+            var _props3 = this.props,
+                onClose = _props3.onClose,
+                name = _props3.name;
 
             var inputMoment = e.path && e.path.find(function (x) {
                 return x.id === _this2._id;
@@ -177,15 +191,15 @@ var MomentInput = exports.MomentInput = function (_Component) {
         key: 'onTextChange',
         value: function onTextChange(e) {
             var val = e.target.value;
-            var _props3 = this.props,
-                onChange = _props3.onChange,
-                name = _props3.name,
-                min = _props3.min,
-                max = _props3.max,
-                format = _props3.format;
+            var _props4 = this.props,
+                onChange = _props4.onChange,
+                name = _props4.name,
+                min = _props4.min,
+                max = _props4.max,
+                format = _props4.format;
 
             var item = (0, _moment2.default)(val, format, true);
-            if (!item.isValid() || !this.isValid(min, max, item, val, false)) return this.setState({ textValue: val, date: null, isValid: false });
+            if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 
             if (onChange) onChange(item, name);
 
@@ -194,9 +208,10 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'renderTab',
         value: function renderTab() {
-            var _props4 = this.props,
-                min = _props4.min,
-                max = _props4.max;
+            var _props5 = this.props,
+                min = _props5.min,
+                max = _props5.max,
+                translations = _props5.translations;
             var _state = this.state,
                 selected = _state.selected,
                 activeTab = _state.activeTab,
@@ -206,7 +221,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 case 1:
                     return _react2.default.createElement(_time2.default, {
                         selected: selected,
-                        onSetTime: this.onSetTime
+                        onSetTime: this.onSetTime,
+                        translations: translations
                     });
                 case 2:
                     return _react2.default.createElement(_year2.default, {
@@ -214,7 +230,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                         add: this.add,
                         onActiveTab: this.onActiveTab,
                         onClick: this.onDayClick,
-                        isDisabled: this.isDisabled
+                        isDisabled: this.isDisabled,
+                        translations: translations
                     });
                 default:
                     return _react2.default.createElement(_date2.default, {
@@ -222,7 +239,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                         add: this.add,
                         onActiveTab: this.onActiveTab,
                         onClick: this.onDayClick,
-                        isDisabled: this.isDisabled
+                        isDisabled: this.isDisabled,
+                        translations: translations
                     });
             }
         }
@@ -231,18 +249,19 @@ var MomentInput = exports.MomentInput = function (_Component) {
         value: function render() {
             var _this3 = this;
 
-            var _props5 = this.props,
-                options = _props5.options,
-                onSave = _props5.onSave,
-                value = _props5.value,
-                style = _props5.style,
-                className = _props5.className,
-                inputClassName = _props5.inputClassName,
-                inputStyle = _props5.inputStyle,
-                name = _props5.name,
-                readOnly = _props5.readOnly,
-                format = _props5.format,
-                icon = _props5.icon;
+            var _props6 = this.props,
+                options = _props6.options,
+                onSave = _props6.onSave,
+                value = _props6.value,
+                style = _props6.style,
+                className = _props6.className,
+                inputClassName = _props6.inputClassName,
+                inputStyle = _props6.inputStyle,
+                name = _props6.name,
+                readOnly = _props6.readOnly,
+                format = _props6.format,
+                icon = _props6.icon,
+                translations = _props6.translations;
             var _state2 = this.state,
                 selected = _state2.selected,
                 activeTab = _state2.activeTab,
@@ -266,7 +285,10 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 isOpen && _react2.default.createElement(
                     'div',
                     { className: 'r-input-moment', id: this._id },
-                    options && _react2.default.createElement(_options2.default, { activeTab: activeTab, onActiveTab: this.onActiveTab }),
+                    options && _react2.default.createElement(_options2.default, {
+                        activeTab: activeTab,
+                        onActiveTab: this.onActiveTab,
+                        translations: translations }),
                     _react2.default.createElement(
                         'div',
                         { className: 'tabs' },
@@ -337,6 +359,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly: true,
+    translations: {},
     icon: false,
     format: "YYYY-MM-DD HH:mm",
     inputClassName: "r-input"
@@ -346,6 +369,7 @@ MomentInput.propTypes = {
     name: _propTypes2.default.string,
     format: _propTypes2.default.string,
     readOnly: _propTypes2.default.bool,
+    translations: _propTypes2.default.object,
     icon: _propTypes2.default.bool,
     min: _propTypes2.default.instanceOf(_moment2.default),
     max: _propTypes2.default.instanceOf(_moment2.default),
