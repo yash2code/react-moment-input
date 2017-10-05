@@ -68,7 +68,7 @@
   ],
   "author": "Kenan Berbic <berbic_16@hotmail.com>, Tarik Kaldzija <t.kaldzija@gmail.com>",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/kenanberbic/react-moment-input#readme",
+  "homepage": "https://kenanberbic.bitbucket.io/react-moment-input",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"

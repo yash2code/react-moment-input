@@ -13,18 +13,21 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">react-moment-input</h1>
         </header>
-        <p className="App-intro">
-          Data picker
-        </p>
-          <MomentInput
-              max={moment().add(5,'days')}
-              min={moment()}
-              format="YYYY-MM-DD HH:mm"
-              options={true}
-              readOnly={false}
-              icon={true}
-              onChange={(date)=> {console.log(date)}} />
-      </div>
+          <div style={{display: "table", margin:"0 auto"}}>
+              <p className="App-intro">
+                  Data picker
+              </p>
+              <MomentInput
+                  max={moment().add(5,'days')}
+                  min={moment()}
+                  format="YYYY-MM-DD HH:mm"
+                  options={true}
+                  readOnly={false}
+                  icon={true}
+                  onChange={(date)=> {console.log(date)}} />
+          </div>
+          </div>
+
     );
   }
 }

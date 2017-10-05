@@ -10,7 +10,7 @@
 
 # production
 /build
-/live
+/kenanberbic.bitbucket.io
 
 # misc
 .DS_Store
