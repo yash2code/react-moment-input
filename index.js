@@ -1,2 +1,1 @@
-import MomentInput from './dist';
-export default MomentInput;
+module.exports = require('./dist');
