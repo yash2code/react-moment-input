@@ -169,8 +169,16 @@ export class MomentInput extends Component {
 
     onTextChange(e) {
         let val = e.target.value;
+
         const {onChange, name, min, max, format} = this.props;
-        let item = moment(val, format, true);
+
+        let nFormat;
+        if(format[format.length -1].toUpperCase()==="A")
+            nFormat = format.replace("A","").replace("a","");
+        else
+            nFormat = format;
+
+        let item = moment(val, nFormat, true);
         if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes"))
             return this.setState({textValue: val, date: null, isValid: false});
 
@@ -181,7 +189,7 @@ export class MomentInput extends Component {
     }
 
     renderTab(){
-        const {min, max, translations, daysOfWeek} = this.props;
+        const {min, max, translations, daysOfWeek, format} = this.props;
         const {selected, activeTab, date} = this.state;
         switch (activeTab){
             case 1:
@@ -189,6 +197,7 @@ export class MomentInput extends Component {
                     selected={selected}
                     onSetTime={this.onSetTime}
                     translations={translations}
+                    isAM={format.indexOf("hh")!==-1}
                 />);
             case 2:
                 return (<YearPicker

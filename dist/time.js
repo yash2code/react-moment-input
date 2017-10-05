@@ -17,7 +17,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (_ref) {
     var selected = _ref.selected,
         onSetTime = _ref.onSetTime,
-        translations = _ref.translations;
+        translations = _ref.translations,
+        isAM = _ref.isAM;
     return _react2.default.createElement(
         'div',
         { className: 'r-time tab-m is-active', style: { paddingBottom: "10px" } },
@@ -27,7 +28,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 'span',
                 { className: 'time' },
-                selected.format("HH")
+                selected.format(isAM ? "hh" : "HH")
             ),
             _react2.default.createElement(
                 'span',
@@ -38,6 +39,12 @@ exports.default = function (_ref) {
                 'span',
                 { className: 'time' },
                 selected.format("mm")
+            ),
+            isAM && _react2.default.createElement('span', { className: 'separater' }),
+            isAM && _react2.default.createElement(
+                'span',
+                { className: 'time' },
+                Number(selected.format("HH")) >= 12 ? "PM" : "AM"
             )
         ),
         _react2.default.createElement(

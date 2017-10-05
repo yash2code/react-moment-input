@@ -189,6 +189,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
         key: 'onTextChange',
         value: function onTextChange(e) {
             var val = e.target.value;
+
             var _props4 = this.props,
                 onChange = _props4.onChange,
                 name = _props4.name,
@@ -196,7 +197,11 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 max = _props4.max,
                 format = _props4.format;
 
-            var item = (0, _moment2.default)(val, format, true);
+
+            var nFormat = void 0;
+            if (format[format.length - 1].toUpperCase() === "A") nFormat = format.replace("A", "").replace("a", "");else nFormat = format;
+
+            var item = (0, _moment2.default)(val, nFormat, true);
             if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 
             if (onChange) onChange(item, name);
@@ -210,7 +215,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 min = _props5.min,
                 max = _props5.max,
                 translations = _props5.translations,
-                daysOfWeek = _props5.daysOfWeek;
+                daysOfWeek = _props5.daysOfWeek,
+                format = _props5.format;
             var _state = this.state,
                 selected = _state.selected,
                 activeTab = _state.activeTab,
@@ -221,7 +227,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     return _react2.default.createElement(_time2.default, {
                         selected: selected,
                         onSetTime: this.onSetTime,
-                        translations: translations
+                        translations: translations,
+                        isAM: format.indexOf("hh") !== -1
                     });
                 case 2:
                     return _react2.default.createElement(_year2.default, {

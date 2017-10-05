@@ -32,12 +32,13 @@ class App extends Component {
           </div>
           <div style={{display: "table", margin:"0 auto"}}>
               <p className="App-intro">
-                  Min and max date 2019-10-05 22:45
+                  Min and max date <br/>
+                  2019-10-05 10:45 PM/AM
               </p>
               <MomentInput
                   max={moment("2019-10-05 22:45")}
                   min={moment()}
-                  format="YYYY-MM-DD HH:mm"
+                  format="YYYY-MM-DD hh:mm AA"
                   translations={{HOURS:"Sati", MINUTES:"Minute",YEARS:"Godine", DATE:"Dani", TIME:"Vrijeme", MONTHS_OCTOBER:"Oktobar", DAYS_MON:"PON"}}
                   options={true}
                   readOnly={false}

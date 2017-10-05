@@ -12,7 +12,7 @@ Support:
 
 * Date time picker
 * Translations
-* Different date formats
+* Different date formats, support for AM/PM YYYY-MM-DD hh:mm AA
 * Tab selection
 * Current day
 * Days of week order
