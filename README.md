@@ -1,5 +1,4 @@
 # react-input-moment
-[![npm](https://img.shields.io/npm/v/react-moment-input.svg)](https://www.npmjs.com/package/react-moment-input)
 
 React datetime picker powered by [momentjs](http://momentjs.com)
 
