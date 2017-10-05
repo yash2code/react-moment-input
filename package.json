@@ -67,8 +67,11 @@
   },
   "keywords": [
     "react",
-    "moment",
+    "react-component",
     "input",
+    "datetime",
+    "picker",
+    "moment",
     "datapicker"
   ],
   "author": "Kenan Berbic <berbic_16@hotmail.com>, Tarik Kaldzija <t.kaldzija@gmail.com>",
