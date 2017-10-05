@@ -8,6 +8,17 @@ The icon is from [ionicons](http://ionicons.com/).
 
 Demo [react-moment-input](https://kenanberbic.bitbucket.io/react-moment-input/).
 
+Support:
+    -   Date time picker,
+    -   Translations,
+    -   Different date formats,
+    -   Tab selection,
+    -   Current day,
+    -   Days of week order,
+    -   Min and max date
+    -   Icon support
+    -   Custom style
+
 ### Installation
 ``` sh
 npm i react-moment-input --save
@@ -38,7 +49,7 @@ Available properties:
 | readOnly | `boolean` | Disable input  | `true`
 | isOpen | `boolean` | Show picker  | `false`
 | icon | `boolean` | Show calendar icon  | `false`
-| daysOfWeek | `array` | Days order in a week  | `['Sun','Mon','Tue','Wed','Thu','Fri','Sat']`
+| daysOfWeek | `array` | Days order in a week  | `['Sun','Mon','Tue', 'Wed','Thu','Fri','Sat']`
 | translations | `JSON` | {DATE:"Date", TIMES:"Times", DAYS_MON:"Mon", MONTHS_OCTOBER:"October"}  | `{}`
 | style | `JSON` | Container style  | `undefined`
 | className | `string` | Container class  | `r-input-group`

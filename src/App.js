@@ -93,12 +93,13 @@ class App extends Component {
           </div>
           <div style={{display: "table", margin:"0 auto"}}>
               <p className="App-intro">
-                  Year and calendar
+                  Year, calendar and today
               </p>
               <MomentInput
                   format="YYYY-MM-DD"
                   options={false}
                   readOnly={false}
+                  today={true}
                   icon={true}
                   tab={2}
                   onChange={(date)=> {}} />

@@ -212,7 +212,7 @@ export class MomentInput extends Component {
     }
 
     render() {
-        const { options, onSave, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations} = this.props;
+        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
         let inputValue = (onSave && value) ? value.format(format) : (date ? date.format(format) : "");
 
@@ -234,7 +234,8 @@ export class MomentInput extends Component {
                     <div className="tabs">
                         {this.renderTab()}
                     </div>
-                    {onSave && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>Save</button>}
+                    {today && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
+                    {onSave && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
                 </div>}
             </div>
         );
@@ -246,6 +247,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly:true,
+    today:false,
     translations: {},
     icon:false,
     format:"YYYY-MM-DD HH:mm",
@@ -257,6 +259,7 @@ MomentInput.propTypes = {
     name: PropTypes.string,
     format: PropTypes.string,
     readOnly: PropTypes.bool,
+    today: PropTypes.bool,
     translations: PropTypes.object,
     daysOfWeek: PropTypes.array,
     icon: PropTypes.bool,

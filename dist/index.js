@@ -251,6 +251,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
             var _props6 = this.props,
                 options = _props6.options,
                 onSave = _props6.onSave,
+                today = _props6.today,
                 value = _props6.value,
                 style = _props6.style,
                 className = _props6.className,
@@ -293,12 +294,19 @@ var MomentInput = exports.MomentInput = function (_Component) {
                         { className: 'tabs' },
                         this.renderTab()
                     ),
+                    today && _react2.default.createElement(
+                        'button',
+                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
+                                _this3.onDayClick((0, _moment2.default)());
+                            } },
+                        translations.TODAY || "Today"
+                    ),
                     onSave && _react2.default.createElement(
                         'button',
                         { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
                                 _this3.setState({ isOpen: false });onSave(date || selected, name);
                             } },
-                        'Save'
+                        translations.SAVE || "Save"
                     )
                 )
             );
@@ -359,6 +367,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly: true,
+    today: false,
     translations: {},
     icon: false,
     format: "YYYY-MM-DD HH:mm",
@@ -370,6 +379,7 @@ MomentInput.propTypes = {
     name: _propTypes2.default.string,
     format: _propTypes2.default.string,
     readOnly: _propTypes2.default.bool,
+    today: _propTypes2.default.bool,
     translations: _propTypes2.default.object,
     daysOfWeek: _propTypes2.default.array,
     icon: _propTypes2.default.bool,
