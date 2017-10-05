@@ -9,12 +9,13 @@ The icon is from [ionicons](http://ionicons.com/).
 Demo [react-moment-input](https://kenanberbic.bitbucket.io/react-moment-input/).
 
 Support:
-* Date time picker,
-* Translations,
-* Different date formats,
-* Tab selection,
-* Current day,
-* Days of week order,
+
+* Date time picker
+* Translations
+* Different date formats
+* Tab selection
+* Current day
+* Days of week order
 * Min and max date
 * Icon support
 * Custom style
