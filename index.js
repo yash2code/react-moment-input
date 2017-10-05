@@ -1,2 +1,2 @@
-import MomentInput from './src/lib';
+import MomentInput from './dist';
 export default MomentInput;
