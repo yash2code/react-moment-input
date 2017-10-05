@@ -46,6 +46,18 @@ class App extends Component {
           </div>
           <div style={{display: "table", margin:"0 auto"}}>
               <p className="App-intro">
+                  Different days order
+              </p>
+              <MomentInput
+                  format="YYYY-MM-DD HH:mm"
+                  options={true}
+                  readOnly={true}
+                  daysOfWeek={['Mon','Tue','Wed','Thu','Fri','Sat','Sun']}
+                  icon={true}
+                  onChange={(date)=> {}} />
+          </div>
+          <div style={{display: "table", margin:"0 auto"}}>
+              <p className="App-intro">
                   Input disabled
               </p>
               <MomentInput
@@ -89,18 +101,6 @@ class App extends Component {
                   readOnly={false}
                   icon={true}
                   tab={2}
-                  onChange={(date)=> {}} />
-          </div>
-          <div style={{display: "table", margin:"0 auto"}}>
-              <p className="App-intro">
-                  Open by default
-              </p>
-              <MomentInput
-                  format="YYYY-MM-DD HH:mm"
-                  options={true}
-                  isOpen={true}
-                  readOnly={true}
-                  icon={true}
                   onChange={(date)=> {}} />
           </div>
           </div>

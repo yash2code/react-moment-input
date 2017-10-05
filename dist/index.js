@@ -53,8 +53,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _mapper = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
 var MomentInput = exports.MomentInput = function (_Component) {
     _inherits(MomentInput, _Component);
 
@@ -211,7 +209,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
             var _props5 = this.props,
                 min = _props5.min,
                 max = _props5.max,
-                translations = _props5.translations;
+                translations = _props5.translations,
+                daysOfWeek = _props5.daysOfWeek;
             var _state = this.state,
                 selected = _state.selected,
                 activeTab = _state.activeTab,
@@ -235,7 +234,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     });
                 default:
                     return _react2.default.createElement(_date2.default, {
-                        defaults: { selected: selected, min: min, max: max, date: date, days: this.Days, months: _mapper },
+                        defaults: { selected: selected, min: min, max: max, date: date, days: this.Days, months: daysOfWeek },
                         add: this.add,
                         onActiveTab: this.onActiveTab,
                         onClick: this.onDayClick,
@@ -325,12 +324,13 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'Days',
         get: function get() {
+            var daysOfWeek = this.props.daysOfWeek;
             var selected = this.state.selected;
 
             var first = selected.clone().date(1);
 
             var days = first.daysInMonth();
-            var index = _mapper.findIndex(function (x) {
+            var index = daysOfWeek.findIndex(function (x) {
                 return x === first.format('ddd');
             });
 
@@ -362,7 +362,8 @@ MomentInput.defaultProps = {
     translations: {},
     icon: false,
     format: "YYYY-MM-DD HH:mm",
-    inputClassName: "r-input"
+    inputClassName: "r-input",
+    daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 };
 
 MomentInput.propTypes = {
@@ -370,6 +371,7 @@ MomentInput.propTypes = {
     format: _propTypes2.default.string,
     readOnly: _propTypes2.default.bool,
     translations: _propTypes2.default.object,
+    daysOfWeek: _propTypes2.default.array,
     icon: _propTypes2.default.bool,
     min: _propTypes2.default.instanceOf(_moment2.default),
     max: _propTypes2.default.instanceOf(_moment2.default),

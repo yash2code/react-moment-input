@@ -12,7 +12,6 @@ import './css/style.css'
 import 'ionicons/dist/css/ionicons.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 
-const _mapper = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 export class MomentInput extends Component {
     constructor(props) {
         super(props);
@@ -143,11 +142,12 @@ export class MomentInput extends Component {
     }
 
     get Days() {
+        const {daysOfWeek} = this.props;
         const {selected} = this.state;
         const first = selected.clone().date(1);
 
         const days = first.daysInMonth();
-        const index = _mapper.findIndex(x=> x === first.format('ddd'));
+        const index = daysOfWeek.findIndex(x=> x === first.format('ddd'));
 
         let items = [];
         let nextDay = 1;
@@ -181,7 +181,7 @@ export class MomentInput extends Component {
     }
 
     renderTab(){
-        const {min, max, translations} = this.props;
+        const {min, max, translations, daysOfWeek} = this.props;
         const {selected, activeTab, date} = this.state;
         switch (activeTab){
             case 1:
@@ -201,7 +201,7 @@ export class MomentInput extends Component {
                 />);
             default:
                 return (<DatePicker
-                    defaults={{selected, min, max, date, days: this.Days, months: _mapper}}
+                    defaults={{selected, min, max, date, days: this.Days, months: daysOfWeek}}
                     add={this.add}
                     onActiveTab={this.onActiveTab}
                     onClick={this.onDayClick}
@@ -249,7 +249,8 @@ MomentInput.defaultProps = {
     translations: {},
     icon:false,
     format:"YYYY-MM-DD HH:mm",
-    inputClassName:"r-input"
+    inputClassName:"r-input",
+    daysOfWeek:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
 };
 
 MomentInput.propTypes = {
@@ -257,6 +258,7 @@ MomentInput.propTypes = {
     format: PropTypes.string,
     readOnly: PropTypes.bool,
     translations: PropTypes.object,
+    daysOfWeek: PropTypes.array,
     icon: PropTypes.bool,
     min: PropTypes.instanceOf(moment),
     max: PropTypes.instanceOf(moment),
