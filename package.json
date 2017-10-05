@@ -1,0 +1,21 @@
+{
+  "name": "react-moment-input",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "ionicons": "^3.0.0",
+    "moment": "^2.18.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-input-mask": "^1.0.7",
+    "react-input-slider": "^3.0.0",
+    "react-ionicons": "^1.5.9",
+    "react-scripts": "1.0.14"
+  },
+  "scripts": {
+    "start": "PORT=8081 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
