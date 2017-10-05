@@ -1,7 +1,6 @@
 {
   "name": "react-moment-input",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "autoprefixer": "7.1.2",
     "babel-core": "6.25.0",
@@ -67,7 +66,7 @@
     "input",
     "datapicker"
   ],
-  "author": "Kenan Berbic <berbic_16@hotmail.com>, Tarik Kaldzija",
+  "author": "Kenan Berbic <berbic_16@hotmail.com>, Tarik Kaldzija <t.kaldzija@gmail.com>",
   "license": "ISC",
   "homepage": "https://bitbucket.org/kenanberbic/react-moment-input#readme",
   "jest": {
