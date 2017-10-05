@@ -18,6 +18,6 @@ export default ({defaults, onClick, onTextChange, className, style}) => (
             onChange={onTextChange}
             mask={setMask(defaults.format)}
             readOnly={defaults.readOnly}/>
-        {defaults.icon && <div style={{cursor:'pointer', width:"20px"}} className="r-input-group-addon fa fa-calendar" onClick={onClick}></div>}
+        {defaults.icon && <div style={{cursor:'pointer', width: 'auto', display: 'table-cell', position: 'relative'}} className="r-input-group-addon" onClick={onClick}><i className="fa fa-calendar" /></div>}
     </div>
 );
