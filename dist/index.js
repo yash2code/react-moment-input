@@ -43,6 +43,8 @@ require('./css/style.css');
 
 require('ionicons/dist/css/ionicons.min.css');
 
+require('font-awesome/css/font-awesome.min.css');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61,6 +63,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (MomentInput.__proto__ || Object.getPrototypeOf(MomentInput)).call(this, props));
 
+        _this._id = Math.random().toString();
         _this.state = {
             selected: (props.value || (0, _moment2.default)()).clone(),
             activeTab: props.tab,
@@ -152,12 +155,14 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'onClose',
         value: function onClose(e) {
+            var _this2 = this;
+
             var _props2 = this.props,
                 onClose = _props2.onClose,
                 name = _props2.name;
 
             var inputMoment = e.path && e.path.find(function (x) {
-                return x.className === "m-input-moment";
+                return x.id === _this2._id;
             });
             if (inputMoment) return;
 
@@ -224,7 +229,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _props5 = this.props,
                 options = _props5.options,
@@ -236,7 +241,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 inputStyle = _props5.inputStyle,
                 name = _props5.name,
                 readOnly = _props5.readOnly,
-                format = _props5.format;
+                format = _props5.format,
+                icon = _props5.icon;
             var _state2 = this.state,
                 selected = _state2.selected,
                 activeTab = _state2.activeTab,
@@ -251,7 +257,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 'div',
                 { style: style, className: className },
                 _react2.default.createElement(_input2.default, {
-                    defaults: { readOnly: readOnly, isValid: isValid, format: format, value: inputValue || textValue },
+                    defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue },
                     onClick: this.inputClick,
                     onTextChange: this.onTextChange,
                     className: inputClassName,
@@ -259,7 +265,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 }),
                 isOpen && _react2.default.createElement(
                     'div',
-                    { className: 'm-input-moment', style: { position: "absolute", backgroundColor: "white", zIndex: 99 } },
+                    { className: 'r-input-moment', id: this._id },
                     options && _react2.default.createElement(_options2.default, { activeTab: activeTab, onActiveTab: this.onActiveTab }),
                     _react2.default.createElement(
                         'div',
@@ -269,7 +275,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     onSave && _react2.default.createElement(
                         'button',
                         { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
-                                _this2.setState({ isOpen: false });onSave(date || selected, name);
+                                _this3.setState({ isOpen: false });onSave(date || selected, name);
                             } },
                         'Save'
                     )
@@ -331,6 +337,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly: true,
+    icon: false,
     format: "YYYY-MM-DD HH:mm",
     inputClassName: "form-control"
 };
@@ -339,6 +346,7 @@ MomentInput.propTypes = {
     name: _propTypes2.default.string,
     format: _propTypes2.default.string,
     readOnly: _propTypes2.default.bool,
+    icon: _propTypes2.default.bool,
     min: _propTypes2.default.instanceOf(_moment2.default),
     max: _propTypes2.default.instanceOf(_moment2.default),
     options: _propTypes2.default.bool,

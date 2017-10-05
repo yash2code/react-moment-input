@@ -19,7 +19,7 @@ exports.default = function (_ref) {
         onSetTime = _ref.onSetTime;
     return _react2.default.createElement(
         'div',
-        { className: 'm-time tab-m is-active', style: { paddingBottom: "10px" } },
+        { className: 'r-time tab-m is-active', style: { paddingBottom: "10px" } },
         _react2.default.createElement(
             'div',
             { className: 'showtime' },

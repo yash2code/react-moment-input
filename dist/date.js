@@ -18,7 +18,7 @@ exports.default = function (_ref) {
         isDisabled = _ref.isDisabled;
     return _react2.default.createElement(
         "div",
-        { className: "m-calendar tab-m is-active" },
+        { className: "r-calendar tab-m is-active" },
         _react2.default.createElement(
             "div",
             { className: "toolbar" },

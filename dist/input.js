@@ -33,9 +33,10 @@ exports.default = function (_ref) {
             style: style,
             placeholder: defaults.format,
             value: defaults.value,
-            onClick: onClick,
+            onClick: !defaults.icon ? onClick : null,
             onChange: onTextChange,
             mask: setMask(defaults.format),
-            readOnly: defaults.readOnly })
+            readOnly: defaults.readOnly }),
+        defaults.icon && _react2.default.createElement('i', { style: { marginLeft: '2px', cursor: 'pointer' }, className: 'fa fa-calendar', onClick: onClick })
     );
 };
