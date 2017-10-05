@@ -48,6 +48,7 @@ npm i react-moment-input --save
 | tab | `Number` | Selected tab: 0-Calendar, 1-Time, 2-Year  | `0`
 | options | `boolean` | Show header options  | `true`
 | readOnly | `boolean` | Disable input  | `true`
+| today | `boolean` | Today button  | `false`
 | isOpen | `boolean` | Show picker  | `false`
 | icon | `boolean` | Show calendar icon  | `false`
 | daysOfWeek | `array` | Days order in a week  | `['Sun','Mon','Tue', '...']`
