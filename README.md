@@ -27,6 +27,9 @@ npm i react-moment-input --save
 
 ### Usage
 ``` javascript
+
+import MomentInput from 'react-moment-input';
+
 <MomentInput
               max={moment().add(5,'days')}
               min={moment()}
