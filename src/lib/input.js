@@ -8,7 +8,7 @@ function setMask(format) {
 }
 
 export default ({defaults, onClick, onTextChange, className, style}) => (
-    <div className={(!defaults.readOnly && !defaults.isValid) ? "has-feedback has-error" : ""}>
+    <div className={(!defaults.readOnly && !defaults.isValid) ? "r-input-group has-feedback has-error" : "r-input-group"}>
         <InputMask
             className={className}
             style={style}
@@ -18,6 +18,6 @@ export default ({defaults, onClick, onTextChange, className, style}) => (
             onChange={onTextChange}
             mask={setMask(defaults.format)}
             readOnly={defaults.readOnly}/>
-        {defaults.icon && <i style={{marginLeft:'2px', cursor:'pointer'}} className="fa fa-calendar" onClick={onClick}></i>}
+        {defaults.icon && <div style={{cursor:'pointer', width:"20px"}} className="r-input-group-addon fa fa-calendar" onClick={onClick}></div>}
     </div>
 );

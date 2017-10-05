@@ -16,8 +16,17 @@ class App extends Component {
         <p className="App-intro">
           Data picker
         </p>
-          <MomentInput max={moment().add(5,'days')} min={moment()} format="YYYY-MM-DD HH:mm" options={true} readOnly={false} icon={false} onChange={(date)=> {console.log(date)}}>
-          </MomentInput>
+          <form>
+          <MomentInput
+              style={{width:"100%"}}
+              max={moment().add(5,'days')}
+              min={moment()}
+              format="YYYY-MM-DD HH:mm"
+              options={true}
+              readOnly={false}
+              icon={true}
+              onChange={(date)=> {console.log(date)}} />
+          </form>
       </div>
     );
   }

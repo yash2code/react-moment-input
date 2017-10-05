@@ -47,3 +47,43 @@
     border: 1px solid #dfe0e4;
     color: #999;
 }
+
+.r-input-group{
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.r-input-group-addon{
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.r-input-group-addon:last-child{
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+}
+
+.r-input{
+    display: table-cell;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
