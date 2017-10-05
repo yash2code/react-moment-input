@@ -339,7 +339,7 @@ MomentInput.defaultProps = {
     readOnly: true,
     icon: false,
     format: "YYYY-MM-DD HH:mm",
-    inputClassName: "form-control"
+    inputClassName: "r-input"
 };
 
 MomentInput.propTypes = {

@@ -27,7 +27,7 @@ exports.default = function (_ref) {
         style = _ref.style;
     return _react2.default.createElement(
         'div',
-        { className: !defaults.readOnly && !defaults.isValid ? "has-feedback has-error" : "" },
+        { className: !defaults.readOnly && !defaults.isValid ? "r-input-group has-feedback has-error" : "r-input-group" },
         _react2.default.createElement(_reactInputMask2.default, {
             className: className,
             style: style,
@@ -37,6 +37,10 @@ exports.default = function (_ref) {
             onChange: onTextChange,
             mask: setMask(defaults.format),
             readOnly: defaults.readOnly }),
-        defaults.icon && _react2.default.createElement('i', { style: { marginLeft: '2px', cursor: 'pointer' }, className: 'fa fa-calendar', onClick: onClick })
+        defaults.icon && _react2.default.createElement(
+            'div',
+            { style: { cursor: 'pointer', width: 'auto', display: 'table-cell', position: 'relative' }, className: 'r-input-group-addon', onClick: onClick },
+            _react2.default.createElement('i', { className: 'fa fa-calendar' })
+        )
     );
 };
