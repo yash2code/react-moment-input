@@ -13,12 +13,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function replaceMonths(value, translation) {
     var values = value.split(" ");
     var tValue = translation["MONTHS_" + values[0].toUpperCase()];
-    return tValue ? tValue + " " + values[1] : value;
+    return tValue ? tValue + (values[1] ? " " + values[1] : "") : value;
 }
 
 function replaceDays(value, translation) {
     return translation["DAYS_" + value.toUpperCase()] || value;
 }
+
+var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 exports.default = function (_ref) {
     var defaults = _ref.defaults,
@@ -40,8 +42,26 @@ exports.default = function (_ref) {
             ),
             _react2.default.createElement(
                 "span",
-                { className: "current-date", style: { marginRight: "-5px" } },
-                replaceMonths(defaults.selected.format("MMMM YYYY"), translations)
+                { className: "current-date react-textselect", style: { marginRight: "-5px" } },
+                replaceMonths(defaults.selected.format("MMMM YYYY"), translations),
+                defaults.monthSelect && _react2.default.createElement(
+                    "select",
+                    { className: "react-textselect-input",
+                        onChange: function onChange(_ref2) {
+                            var target = _ref2.target;
+                            _onClick(defaults.selected.clone().month(target.value));
+                        },
+                        value: Number(defaults.selected.format("MM")) - 1 },
+                    MONTHS.map(function (x, index) {
+                        return _react2.default.createElement(
+                            "option",
+                            { value: index,
+                                disabled: isDisabled(defaults.min, defaults.max, defaults.selected.clone().month(x), defaults.date, x),
+                                key: index },
+                            replaceMonths(x, translations)
+                        );
+                    })
+                )
             ),
             _react2.default.createElement(
                 "button",
@@ -53,7 +73,7 @@ exports.default = function (_ref) {
                 { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick() {
                         onActiveTab(2);
                     } },
-                _react2.default.createElement("i", { className: "ion-ios-barcode-outline" })
+                _react2.default.createElement("i", { "class": "fa fa-level-down", "aria-hidden": "true" })
             )
         ),
         _react2.default.createElement(

@@ -10,7 +10,9 @@ The icon is from [ionicons](http://ionicons.com/).
 
 Demo: [react-moment-input](https://kenanberbic.bitbucket.io/react-moment-input/).
 
-Source: [react-moment-input](https://git@bitbucket.org/kenanberbic/react-moment-input).
+Source: [react-moment-input](https://git@bitbucket.org/kenanberbic/react-moment-input) issue tracker.
+
+Issue tracker: [react-moment-input](https://bitbucket.org/kenanberbic/react-moment-input/issues)
 
 Support:
 
@@ -18,6 +20,7 @@ Support:
 * Translations
 * Different date formats, support for AM/PM YYYY-MM-DD hh:mm AA
 * Tab selection
+* Month selection
 * Current day
 * Days of week order
 * Min and max date
@@ -55,6 +58,7 @@ import MomentInput from 'react-moment-input';
 | tab | `Number` | Selected tab: 0-Calendar, 1-Time, 2-Year  | `0`
 | options | `boolean` | Show header options  | `true`
 | readOnly | `boolean` | Disable input  | `true`
+| monthSelect | `boolean` | Disable month select control  | `false`
 | today | `boolean` | Today button  | `false`
 | isOpen | `boolean` | Show picker  | `false`
 | icon | `boolean` | Show calendar icon  | `false`

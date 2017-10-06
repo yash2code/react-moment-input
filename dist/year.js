@@ -43,7 +43,7 @@ exports.default = function (_ref) {
                 { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick() {
                         onActiveTab(0);
                     } },
-                _react2.default.createElement("i", { className: "ion-ios-barcode-outline" })
+                _react2.default.createElement("i", { "class": "fa fa-level-up", "aria-hidden": "true" })
             )
         ),
         _react2.default.createElement(

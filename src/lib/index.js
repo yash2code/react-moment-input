@@ -45,11 +45,12 @@ export class MomentInput extends Component {
     }
 
     onDayClick(date) {
+        console.log(date);
         const {min, max, format} = this.props;
         if (!this.isValid(min,max, date, date.format(format), false, "day"))
             return;
 
-        this.setState({date, isValid: true});
+        this.setState({date, selected: date, isValid: true});
         if (this.props.onChange)
             this.props.onChange(date, this.props.name);
     }
@@ -189,7 +190,7 @@ export class MomentInput extends Component {
     }
 
     renderTab(){
-        const {min, max, translations, daysOfWeek, format} = this.props;
+        const {min, max, translations, daysOfWeek, format, monthSelect} = this.props;
         const {selected, activeTab, date} = this.state;
         switch (activeTab){
             case 1:
@@ -210,7 +211,7 @@ export class MomentInput extends Component {
                 />);
             default:
                 return (<DatePicker
-                    defaults={{selected, min, max, date, days: this.Days, months: daysOfWeek}}
+                    defaults={{selected, min, max, date, monthSelect, days: this.Days, months: daysOfWeek}}
                     add={this.add}
                     onActiveTab={this.onActiveTab}
                     onClick={this.onDayClick}
@@ -256,6 +257,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly:true,
+    monthSelect:true,
     today:false,
     translations: {},
     icon:false,
@@ -268,6 +270,7 @@ MomentInput.propTypes = {
     name: PropTypes.string,
     format: PropTypes.string,
     readOnly: PropTypes.bool,
+    monthSelect: PropTypes.bool,
     today: PropTypes.bool,
     translations: PropTypes.object,
     daysOfWeek: PropTypes.array,

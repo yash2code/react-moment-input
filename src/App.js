@@ -70,12 +70,14 @@ class App extends Component {
           </div>
           <div style={{display: "table", margin:"0 auto"}}>
               <p className="App-intro">
-                  Only calendar
+                  Only calendar <br/>
+                  Month select disabled
               </p>
               <MomentInput
                   format="YYYY-MM-DD"
                   options={false}
                   readOnly={false}
+                  monthSelect={false}
                   icon={true}
                   onChange={(date)=> {}} />
           </div>

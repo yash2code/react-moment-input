@@ -94,6 +94,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'onDayClick',
         value: function onDayClick(date) {
+            console.log(date);
             var _props = this.props,
                 min = _props.min,
                 max = _props.max,
@@ -101,7 +102,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
             if (!this.isValid(min, max, date, date.format(format), false, "day")) return;
 
-            this.setState({ date: date, isValid: true });
+            this.setState({ date: date, selected: date, isValid: true });
             if (this.props.onChange) this.props.onChange(date, this.props.name);
         }
     }, {
@@ -216,7 +217,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 max = _props5.max,
                 translations = _props5.translations,
                 daysOfWeek = _props5.daysOfWeek,
-                format = _props5.format;
+                format = _props5.format,
+                monthSelect = _props5.monthSelect;
             var _state = this.state,
                 selected = _state.selected,
                 activeTab = _state.activeTab,
@@ -241,7 +243,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     });
                 default:
                     return _react2.default.createElement(_date2.default, {
-                        defaults: { selected: selected, min: min, max: max, date: date, days: this.Days, months: daysOfWeek },
+                        defaults: { selected: selected, min: min, max: max, date: date, monthSelect: monthSelect, days: this.Days, months: daysOfWeek },
                         add: this.add,
                         onActiveTab: this.onActiveTab,
                         onClick: this.onDayClick,
@@ -374,6 +376,7 @@ MomentInput.defaultProps = {
     isOpen: false,
     options: true,
     readOnly: true,
+    monthSelect: true,
     today: false,
     translations: {},
     icon: false,
@@ -386,6 +389,7 @@ MomentInput.propTypes = {
     name: _propTypes2.default.string,
     format: _propTypes2.default.string,
     readOnly: _propTypes2.default.bool,
+    monthSelect: _propTypes2.default.bool,
     today: _propTypes2.default.bool,
     translations: _propTypes2.default.object,
     daysOfWeek: _propTypes2.default.array,

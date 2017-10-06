@@ -12,7 +12,7 @@
 .r-calendar .toolbar{line-height:30px;color:#1385e5;text-align:center;margin-bottom:13px}
 .r-calendar .toolbar button{position:relative;width:30px;height:30px;line-height:30px;color:#fff;border:1px solid #1385e5;border-radius:50%;background:#1385e5;font-size:20px;padding:0;text-align:center;outline:0;z-index:5;cursor:pointer}
 .r-calendar .toolbar .prev-month{float:left}.r-calendar .toolbar .next-month{float:right}
-.r-calendar .toolbar .current-date{color:#1385e5}.r-time{color:#fff;padding-top:50px}
+.r-calendar .toolbar .current-date{color:#1385e5;}.r-time{color:#fff;padding-top:50px}
 .r-time .showtime{text-align:center}
 .r-time .separater{display:inline-block;font-size:32px;font-weight:700;color:#1385e5;width:32px;height:65px;line-height:65px;text-align:center}
 .r-time .time-text{position:relative;left:-10px;font-size:15px;color:#1385e5;margin-top:7px;margin-bottom:10px}
@@ -105,5 +105,24 @@
 .r-input-group.has-error {
     border-radius: 4px;
     border: 1px solid red;
+}
+
+.react-textselect {
+    border-bottom: 1px solid #1385e5;
+    overflow: hidden;
+    margin-right: .17em;
+    position: relative;
+}
+
+.react-textselect-input {
+    font-size: 1.2em;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    z-index: 1;
 }
 
