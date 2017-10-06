@@ -6,7 +6,9 @@ The design is from http://wangzuo.github.io/input-moment/.
 
 The icon is from [ionicons](http://ionicons.com/).
 
-Demo [react-moment-input](https://kenanberbic.bitbucket.io/react-moment-input/).
+Demo: [react-moment-input](https://kenanberbic.bitbucket.io/react-moment-input/).
+
+Source: [react-moment-input](https://git@bitbucket.org/kenanberbic/react-moment-input).
 
 Support:
 
