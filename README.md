@@ -1,6 +1,7 @@
 # react-moment-input
 [![npm](https://img.shields.io/npm/v/react-moment-input.svg)](https://www.npmjs.com/package/react-moment-input)
 [ ![Codeship Status for kenanberbic/react-moment-input](https://app.codeship.com/projects/defd3130-8d08-0135-56c7-72b04f178433/status?branch=master)](https://app.codeship.com/projects/249635)
+[![Known Vulnerabilities](https://snyk.io/test/npm/react-moment-input/badge.svg)](https://snyk.io/test/npm/react-moment-input)
 
 React datetime picker powered by [momentjs](http://momentjs.com)
 
