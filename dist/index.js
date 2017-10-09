@@ -279,7 +279,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 textValue = _state2.textValue,
                 isValid = _state2.isValid;
 
-            var inputValue = onSave && value ? value.format(format) : date ? date.format(format) : "";
+            var inputValue = value ? value.format(format) : date ? date.format(format) : "";
 
             return _react2.default.createElement(
                 'div',

@@ -32,7 +32,7 @@ export default ({defaults, add, onActiveTab, onClick, isDisabled, translations})
                 <i className="ion-md-arrow-dropright"></i>
             </button>
             <button className="next-month" style={{marginRight:"5px"}} onClick={()=> {onActiveTab(2)}}>
-                <i class="fa fa-level-down" aria-hidden="true"></i>
+                <i className="fa fa-level-down" aria-hidden="true"></i>
             </button>
         </div>
         <table>

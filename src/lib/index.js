@@ -224,7 +224,7 @@ export class MomentInput extends Component {
     render() {
         const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
-        let inputValue = (onSave && value) ? value.format(format) : (date ? date.format(format) : "");
+        let inputValue = value ? value.format(format) : (date ? date.format(format) : "");
 
         return (
             <div style={style} className={className}>
