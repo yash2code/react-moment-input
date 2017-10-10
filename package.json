@@ -4,7 +4,7 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
-    "moment": "^2.18.1",
+    "moment": "~2.18.1",
     "react-input-mask": "^1.0.7",
     "react-input-slider": "^3.0.0"
   },
