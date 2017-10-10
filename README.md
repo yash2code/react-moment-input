@@ -11,7 +11,7 @@ The icon is from [ionicons](http://ionicons.com/).
 
 Demo: [react-moment-input](https://kenanberbic.bitbucket.io/react-moment-input/).
 
-Source: [react-moment-input](https://git@bitbucket.org/kenanberbic/react-moment-input) issue tracker.
+Source: [react-moment-input](https://git@bitbucket.org/kenanberbic/react-moment-input).
 
 Issue tracker: [react-moment-input](https://bitbucket.org/kenanberbic/react-moment-input/issues)
 
