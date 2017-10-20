@@ -38,8 +38,13 @@ export class MomentInput extends Component {
     }
 
     componentDidMount() {
-        if (this.props.defaultValue)
-            this.setState({date: this.props.defaultValue, selected: this.props.defaultValue})
+        this.defaultTime = this.props.defaultTime;
+        let date = this.props.defaultValue;
+        if (this.props.defaultTime)
+            date = new moment(date.format("YYYY-MM-DD ") + this.defaultTime);
+
+        if (date)
+            this.setState({date: date, selected: date});
     }
 
     add(next, type) {
@@ -51,6 +56,10 @@ export class MomentInput extends Component {
 
     onDayClick(date) {
         const {min, max, format} = this.props;
+
+        if(this.defaultTime)
+            date = new moment(date.format("YYYY-MM-DD ") + this.defaultTime);
+
         if (!this.isValid(min,max, date, date.format(format), false, "day"))
             return;
 
@@ -67,7 +76,7 @@ export class MomentInput extends Component {
         const self = this;
         return function ({x}) {
             self.state.selected.set(type, x);
-
+            self.defaultTime = null;
            /* const {min, max, format} = self.props;
             if (!self.isValid(min,max, self.state.selected, self.state.selected.format(format), false, "minutes"))
                 return self.setState({isValid: false});*/
@@ -102,7 +111,6 @@ export class MomentInput extends Component {
     }
 
     inputClick(e) {
-        console.log("da");
         const {isOpen} = this.state;
         this.setState({isOpen: !isOpen});
 
@@ -289,6 +297,8 @@ MomentInput.propTypes = {
     onClose: PropTypes.func,
     onChange: PropTypes.func,
     value:PropTypes.instanceOf(moment),
+    defaultValue:PropTypes.instanceOf(moment),
+    defaultTime:PropTypes.string,
     style: PropTypes.object,
     className: PropTypes.string,
     inputClassName: PropTypes.string,

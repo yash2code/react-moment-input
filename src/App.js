@@ -25,7 +25,8 @@ class App extends Component {
               </p>
               <MomentInput
                   format="YYYY-MM-DD HH:mm"
-                  value={this.state.value}
+                  defaultValue={this.state.value}
+                  defaultTime="03:00"
                   options={true}
                   readOnly={false}
                   onSave={(value)=> {this.setState({value})}} />
