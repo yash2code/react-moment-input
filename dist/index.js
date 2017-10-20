@@ -86,7 +86,11 @@ var MomentInput = exports.MomentInput = function (_Component) {
     _createClass(MomentInput, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            if (this.props.defaultValue) this.setState({ date: this.props.defaultValue, selected: this.props.defaultValue });
+            this.defaultTime = this.props.defaultTime;
+            var date = this.props.defaultValue;
+            if (this.props.defaultTime) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
+
+            if (date) this.setState({ date: date, selected: date });
         }
     }, {
         key: 'add',
@@ -103,6 +107,9 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 min = _props.min,
                 max = _props.max,
                 format = _props.format;
+
+
+            if (this.defaultTime) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
 
             if (!this.isValid(min, max, date, date.format(format), false, "day")) return;
 
@@ -122,7 +129,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 var x = _ref.x;
 
                 self.state.selected.set(type, x);
-
+                self.defaultTime = null;
                 /* const {min, max, format} = self.props;
                  if (!self.isValid(min,max, self.state.selected, self.state.selected.format(format), false, "minutes"))
                      return self.setState({isValid: false});*/
@@ -155,7 +162,6 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'inputClick',
         value: function inputClick(e) {
-            console.log("da");
             var isOpen = this.state.isOpen;
 
             this.setState({ isOpen: !isOpen });
@@ -404,6 +410,8 @@ MomentInput.propTypes = {
     onClose: _propTypes2.default.func,
     onChange: _propTypes2.default.func,
     value: _propTypes2.default.instanceOf(_moment2.default),
+    defaultValue: _propTypes2.default.instanceOf(_moment2.default),
+    defaultTime: _propTypes2.default.string,
     style: _propTypes2.default.object,
     className: _propTypes2.default.string,
     inputClassName: _propTypes2.default.string,
