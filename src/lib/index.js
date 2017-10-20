@@ -37,6 +37,11 @@ export class MomentInput extends Component {
         this.add = this.add.bind(this);
     }
 
+    componentDidMount() {
+        if (this.props.defaultValue)
+            this.setState({date: this.props.defaultValue, selected: this.props.defaultValue})
+    }
+
     add(next, type) {
         const self = this;
         return function () {
@@ -45,7 +50,6 @@ export class MomentInput extends Component {
     }
 
     onDayClick(date) {
-        console.log(date);
         const {min, max, format} = this.props;
         if (!this.isValid(min,max, date, date.format(format), false, "day"))
             return;
@@ -98,6 +102,7 @@ export class MomentInput extends Component {
     }
 
     inputClick(e) {
+        console.log("da");
         const {isOpen} = this.state;
         this.setState({isOpen: !isOpen});
 
@@ -113,7 +118,7 @@ export class MomentInput extends Component {
 
     onClose(e) {
         const {onClose, name} = this.props;
-        let inputMoment = e.path && e.path.find(x => x.id === this._id);
+        let inputMoment = (e.target.className || "").indexOf("react-input-moment")!==-1;
         if (inputMoment)
             return;
 
@@ -227,7 +232,7 @@ export class MomentInput extends Component {
         let inputValue = value ? value.format(format) : (date ? date.format(format) : "");
 
         return (
-            <div style={style} className={className}>
+            <div style={style} className={(className || "") + " react-input-moment"}>
                 <Input
                     defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue)}}
                     onClick={this.inputClick}
@@ -236,7 +241,7 @@ export class MomentInput extends Component {
                     style={inputStyle}
                 />
                 {isOpen &&
-                <div className="r-input-moment" id={this._id}>
+                <div className="react-input-moment r-input-moment" id={this._id}>
                     {options && <Options
                         activeTab={activeTab}
                         onActiveTab={this.onActiveTab}
@@ -244,8 +249,8 @@ export class MomentInput extends Component {
                     <div className="tabs">
                         {this.renderTab()}
                     </div>
-                    {today && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
-                    {onSave && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
+                    {today && <button className="react-input-moment im-btn btn-save ion-checkmark" onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
+                    {onSave && <button className="react-input-moment im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
                 </div>}
             </div>
         );

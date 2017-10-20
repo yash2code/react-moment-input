@@ -84,6 +84,11 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }
 
     _createClass(MomentInput, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            if (this.props.defaultValue) this.setState({ date: this.props.defaultValue, selected: this.props.defaultValue });
+        }
+    }, {
         key: 'add',
         value: function add(next, type) {
             var self = this;
@@ -94,7 +99,6 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'onDayClick',
         value: function onDayClick(date) {
-            console.log(date);
             var _props = this.props,
                 min = _props.min,
                 max = _props.max,
@@ -151,6 +155,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'inputClick',
         value: function inputClick(e) {
+            console.log("da");
             var isOpen = this.state.isOpen;
 
             this.setState({ isOpen: !isOpen });
@@ -168,15 +173,11 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'onClose',
         value: function onClose(e) {
-            var _this2 = this;
-
             var _props3 = this.props,
                 onClose = _props3.onClose,
                 name = _props3.name;
 
-            var inputMoment = e.path && e.path.find(function (x) {
-                return x.id === _this2._id;
-            });
+            var inputMoment = (e.target.className || "").indexOf("react-input-moment") !== -1;
             if (inputMoment) return;
 
             this.setState({ isOpen: false });
@@ -255,7 +256,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this2 = this;
 
             var _props6 = this.props,
                 options = _props6.options,
@@ -283,7 +284,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { style: style, className: className },
+                { style: style, className: (className || "") + " react-input-moment" },
                 _react2.default.createElement(_input2.default, {
                     defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue },
                     onClick: this.inputClick,
@@ -293,7 +294,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 }),
                 isOpen && _react2.default.createElement(
                     'div',
-                    { className: 'r-input-moment', id: this._id },
+                    { className: 'react-input-moment r-input-moment', id: this._id },
                     options && _react2.default.createElement(_options2.default, {
                         activeTab: activeTab,
                         onActiveTab: this.onActiveTab,
@@ -305,15 +306,15 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     ),
                     today && _react2.default.createElement(
                         'button',
-                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
-                                _this3.onDayClick((0, _moment2.default)());
+                        { className: 'react-input-moment im-btn btn-save ion-checkmark', onClick: function onClick() {
+                                _this2.onDayClick((0, _moment2.default)());
                             } },
                         translations.TODAY || "Today"
                     ),
                     onSave && _react2.default.createElement(
                         'button',
-                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
-                                _this3.setState({ isOpen: false });onSave(date || selected, name);
+                        { className: 'react-input-moment im-btn btn-save ion-checkmark', onClick: function onClick() {
+                                _this2.setState({ isOpen: false });onSave(date || selected, name);
                             } },
                         translations.SAVE || "Save"
                     )

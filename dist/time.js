@@ -21,43 +21,43 @@ exports.default = function (_ref) {
         isAM = _ref.isAM;
     return _react2.default.createElement(
         'div',
-        { className: 'r-time tab-m is-active', style: { paddingBottom: "10px" } },
+        { className: 'r-time tab-m is-active react-input-moment', style: { paddingBottom: "10px" } },
         _react2.default.createElement(
             'div',
-            { className: 'showtime' },
+            { className: 'showtime react-input-moment' },
             _react2.default.createElement(
                 'span',
-                { className: 'time' },
+                { className: 'time react-input-moment' },
                 selected.format(isAM ? "hh" : "HH")
             ),
             _react2.default.createElement(
                 'span',
-                { className: 'separater' },
+                { className: 'separater react-input-moment' },
                 ':'
             ),
             _react2.default.createElement(
                 'span',
-                { className: 'time' },
+                { className: 'time react-input-moment' },
                 selected.format("mm")
             ),
-            isAM && _react2.default.createElement('span', { className: 'separater' }),
+            isAM && _react2.default.createElement('span', { className: 'separater react-input-moment' }),
             isAM && _react2.default.createElement(
                 'span',
-                { className: 'time' },
+                { className: 'time react-input-moment' },
                 Number(selected.format("HH")) >= 12 ? "PM" : "AM"
             )
         ),
         _react2.default.createElement(
             'div',
-            { className: 'sliders' },
+            { className: 'sliders react-input-moment' },
             _react2.default.createElement(
                 'div',
-                { className: 'time-text' },
+                { className: 'time-text react-input-moment' },
                 translations.HOURS || "Hours",
                 ':'
             ),
             _react2.default.createElement(_reactInputSlider2.default, {
-                className: 'u-slider u-slider-x u-slider-time',
+                className: 'u-slider u-slider-x u-slider-time react-input-moment',
                 axis: 'x',
                 x: Number(selected.format('HH')),
                 xmax: 23,
@@ -65,12 +65,12 @@ exports.default = function (_ref) {
             }),
             _react2.default.createElement(
                 'div',
-                { className: 'time-text' },
+                { className: 'time-text react-input-moment' },
                 translations.MINUTES || "Minutes",
                 ':'
             ),
             _react2.default.createElement(_reactInputSlider2.default, {
-                className: 'u-slider u-slider-x u-slider-time',
+                className: 'u-slider u-slider-x u-slider-time react-input-moment',
                 axis: 'x',
                 x: Number(selected.format('mm')),
                 xmax: 59,
