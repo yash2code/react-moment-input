@@ -40,7 +40,7 @@ export class MomentInput extends Component {
     componentDidMount() {
         this.defaultTime = this.props.defaultTime;
         let date = this.props.defaultValue;
-        if (this.props.defaultTime)
+        if (this.props.defaultTime && date)
             date = new moment(date.format("YYYY-MM-DD ") + this.defaultTime);
 
         if (date)
