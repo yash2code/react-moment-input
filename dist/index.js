@@ -88,7 +88,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
         value: function componentDidMount() {
             this.defaultTime = this.props.defaultTime;
             var date = this.props.defaultValue;
-            if (this.props.defaultTime) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
+            if (this.props.defaultTime && date) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
 
             if (date) this.setState({ date: date, selected: date });
         }
