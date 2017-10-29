@@ -55,6 +55,7 @@ import MomentInput from 'react-moment-input';
 | min | `moment` | Min selected date | `undefined`
 | max | `moment` | Max selected date | `undefined`
 | value | `moment` | The current value | `undefined`
+| defaultValue | `moment` | The current value, only apply on component mount | `undefined`
 | format | `string` | Date time format | `YYYY-MM-DD HH:mm`
 | tab | `Number` | Selected tab: 0-Calendar, 1-Time, 2-Year  | `0`
 | options | `boolean` | Show header options  | `true`
