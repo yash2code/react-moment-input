@@ -58,6 +58,7 @@ import MomentInput from 'react-moment-input';
 | format | `string` | Date time format | `YYYY-MM-DD HH:mm`
 | tab | `Number` | Selected tab: 0-Calendar, 1-Time, 2-Year  | `0`
 | options | `boolean` | Show header options  | `true`
+| position | `string` | Picker positions : 'bottom' or 'right'  | `bottom`
 | readOnly | `boolean` | Disable input  | `true`
 | monthSelect | `boolean` | Disable month select control  | `false`
 | today | `boolean` | Today button  | `false`

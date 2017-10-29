@@ -31,22 +31,22 @@ exports.default = function (_ref) {
         translations = _ref.translations;
     return _react2.default.createElement(
         "div",
-        { className: "react-input-moment r-calendar tab-m is-active" },
+        { className: "r-calendar tab-m is-active" },
         _react2.default.createElement(
             "div",
-            { className: "react-input-moment toolbar" },
+            { className: "toolbar" },
             _react2.default.createElement(
                 "button",
-                { className: "react-input-moment prev-month", onClick: add(-1, 'month') },
-                _react2.default.createElement("i", { className: "react-input-moment ion-md-arrow-dropleft" })
+                { className: "prev-month", onClick: add(-1, 'month') },
+                _react2.default.createElement("i", { className: "ion-md-arrow-dropleft" })
             ),
             _react2.default.createElement(
                 "span",
-                { className: "react-input-moment current-date react-textselect", style: { marginRight: "-5px" } },
+                { className: "current-date react-textselect", style: { marginRight: "-5px" } },
                 replaceMonths(defaults.selected.format("MMMM YYYY"), translations),
                 defaults.monthSelect && _react2.default.createElement(
                     "select",
-                    { className: "react-textselect-input react-input-moment",
+                    { className: "react-textselect-input",
                         onChange: function onChange(_ref2) {
                             var target = _ref2.target;
                             _onClick(defaults.selected.clone().month(target.value));
@@ -56,7 +56,6 @@ exports.default = function (_ref) {
                         return _react2.default.createElement(
                             "option",
                             { value: index,
-                                className: "react-input-moment",
                                 disabled: isDisabled(defaults.min, defaults.max, defaults.selected.clone().month(x), defaults.date, x),
                                 key: index },
                             replaceMonths(x, translations)
@@ -66,26 +65,26 @@ exports.default = function (_ref) {
             ),
             _react2.default.createElement(
                 "button",
-                { className: "react-input-moment next-month", onClick: add(1, 'month') },
-                _react2.default.createElement("i", { className: "react-input-moment ion-md-arrow-dropright" })
+                { className: "next-month", onClick: add(1, 'month') },
+                _react2.default.createElement("i", { className: "ion-md-arrow-dropright" })
             ),
             _react2.default.createElement(
                 "button",
-                { className: "react-input-moment next-month", style: { marginRight: "5px" }, onClick: function onClick() {
-                        onActiveTab(2);
+                { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick(e) {
+                        onActiveTab(2);e.stopPropagation();
                     } },
-                _react2.default.createElement("i", { className: "react-input-moment fa fa-level-down", "aria-hidden": "true" })
+                _react2.default.createElement("i", { className: "fa fa-level-down", "aria-hidden": "true" })
             )
         ),
         _react2.default.createElement(
             "table",
-            { className: "react-input-moment" },
+            null,
             _react2.default.createElement(
                 "thead",
-                { className: "react-input-moment" },
+                null,
                 _react2.default.createElement(
                     "tr",
-                    { className: "react-input-moment" },
+                    null,
                     defaults.months.map(function (x, i) {
                         return _react2.default.createElement(
                             "td",
@@ -97,7 +96,7 @@ exports.default = function (_ref) {
             ),
             _react2.default.createElement(
                 "tbody",
-                { className: "react-input-moment" },
+                null,
                 defaults.days.map(function (items, index) {
                     return _react2.default.createElement(
                         "tr",
@@ -106,7 +105,7 @@ exports.default = function (_ref) {
                             return _react2.default.createElement(
                                 "td",
                                 { key: index + "" + iIndex,
-                                    className: isDisabled(defaults.min, defaults.max, defaults.selected.clone().date(x), defaults.date, x) + " react-input-moment",
+                                    className: isDisabled(defaults.min, defaults.max, defaults.selected.clone().date(x), defaults.date, x),
                                     onClick: function onClick() {
                                         return x !== "" && _onClick(defaults.selected.clone().date(x));
                                     } },

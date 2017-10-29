@@ -11,9 +11,9 @@ function setMask(format, readOnly) {
 }
 
 export default ({defaults, onClick, onTextChange, className, style}) => (
-    <div className={(!defaults.readOnly && !defaults.isValid) ? "r-input-group has-feedback has-error react-input-moment" : "r-input-group react-input-moment"}>
+    <div className={(!defaults.readOnly && !defaults.isValid) ? "r-input-group r-has-feedback r-has-error" : "r-input-group"}>
         <InputMask
-            className={(className || "") + " react-input-moment"}
+            className={className}
             style={style}
             placeholder={defaults.format}
             value={defaults.value}
@@ -21,6 +21,6 @@ export default ({defaults, onClick, onTextChange, className, style}) => (
             onChange={onTextChange}
             mask={setMask(defaults.format, defaults.readOnly)}
             readOnly={defaults.readOnly}/>
-        {defaults.icon && <div style={{cursor:'pointer', width: 'auto', display: 'table-cell', position: 'relative'}} className="r-input-group-addon react-input-moment" onClick={onClick}><i className="fa fa-calendar" /></div>}
+        {defaults.icon && <div style={{cursor:'pointer', width: 'auto', display: 'table-cell', position: 'relative'}} className="r-input-group-addon" onClick={onClick}><i className="fa fa-calendar" /></div>}
     </div>
 );

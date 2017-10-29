@@ -19,39 +19,39 @@ exports.default = function (_ref) {
         translations = _ref.translations;
     return _react2.default.createElement(
         "div",
-        { className: "r-calendar tab-m is-active react-input-moment" },
+        { className: "r-calendar tab-m is-active" },
         _react2.default.createElement(
             "div",
-            { className: "toolbar react-input-moment" },
+            { className: "toolbar" },
             _react2.default.createElement(
                 "button",
-                { className: "prev-month react-input-moment", onClick: add(-12, 'year') },
-                _react2.default.createElement("i", { className: "ion-md-arrow-dropleft react-input-moment" })
+                { className: "prev-month", onClick: add(-12, 'year') },
+                _react2.default.createElement("i", { className: "ion-md-arrow-dropleft" })
             ),
             _react2.default.createElement(
                 "span",
-                { className: "current-date react-input-moment", style: { marginRight: "-5px" } },
+                { className: "current-date", style: { marginRight: "-5px" } },
                 translations.YEARS || "Years"
             ),
             _react2.default.createElement(
                 "button",
-                { className: "next-month react-input-moment", onClick: add(12, 'year') },
-                _react2.default.createElement("i", { className: "ion-md-arrow-dropright react-input-moment" })
+                { className: "next-month", onClick: add(12, 'year') },
+                _react2.default.createElement("i", { className: "ion-md-arrow-dropright" })
             ),
             _react2.default.createElement(
                 "button",
-                { className: "next-month react-input-moment", style: { marginRight: "5px" }, onClick: function onClick() {
-                        onActiveTab(0);
+                { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick(e) {
+                        onActiveTab(0);e.stopPropagation();
                     } },
-                _react2.default.createElement("i", { className: "fa fa-level-up react-input-moment", "aria-hidden": "true" })
+                _react2.default.createElement("i", { className: "fa fa-level-up" })
             )
         ),
         _react2.default.createElement(
             "table",
-            { "react-input-moment": true },
+            null,
             _react2.default.createElement(
                 "tbody",
-                { "react-input-moment": true },
+                null,
                 defaults.years.map(function (items, index) {
                     return _react2.default.createElement(
                         "tr",
@@ -60,7 +60,7 @@ exports.default = function (_ref) {
                             return _react2.default.createElement(
                                 "td",
                                 { key: index + "" + iIndex,
-                                    className: isDisabled(defaults.min, defaults.max, defaults.selected.clone().year(x), defaults.date, x, false) + " react-input-moment",
+                                    className: isDisabled(defaults.min, defaults.max, defaults.selected.clone().year(x), defaults.date, x, false),
                                     onClick: function onClick() {
                                         return _onClick(defaults.selected.clone().year(x));
                                     }

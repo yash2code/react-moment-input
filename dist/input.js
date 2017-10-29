@@ -29,9 +29,9 @@ exports.default = function (_ref) {
         style = _ref.style;
     return _react2.default.createElement(
         'div',
-        { className: !defaults.readOnly && !defaults.isValid ? "r-input-group has-feedback has-error react-input-moment" : "r-input-group react-input-moment" },
+        { className: !defaults.readOnly && !defaults.isValid ? "r-input-group r-has-feedback r-has-error" : "r-input-group" },
         _react2.default.createElement(_reactInputMask2.default, {
-            className: (className || "") + " react-input-moment",
+            className: className,
             style: style,
             placeholder: defaults.format,
             value: defaults.value,
@@ -41,7 +41,7 @@ exports.default = function (_ref) {
             readOnly: defaults.readOnly }),
         defaults.icon && _react2.default.createElement(
             'div',
-            { style: { cursor: 'pointer', width: 'auto', display: 'table-cell', position: 'relative' }, className: 'r-input-group-addon react-input-moment', onClick: onClick },
+            { style: { cursor: 'pointer', width: 'auto', display: 'table-cell', position: 'relative' }, className: 'r-input-group-addon', onClick: onClick },
             _react2.default.createElement('i', { className: 'fa fa-calendar' })
         )
     );

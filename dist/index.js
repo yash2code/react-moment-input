@@ -174,17 +174,17 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
             if (onChange || onClose) window.addEventListener('click', this.onClose);
 
-            e.stopPropagation();
+            // e.stopPropagation();
         }
     }, {
         key: 'onClose',
         value: function onClose(e) {
+            console.log(e.target);
+            if (this.node.contains(e.target)) return;
+
             var _props3 = this.props,
                 onClose = _props3.onClose,
                 name = _props3.name;
-
-            var inputMoment = (e.target.className || "").indexOf("react-input-moment") !== -1;
-            if (inputMoment) return;
 
             this.setState({ isOpen: false });
             window.removeEventListener('click', this.onClose);
@@ -210,6 +210,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
             if (format[format.length - 1].toUpperCase() === "A") nFormat = format.replace("A", "").replace("a", "");else nFormat = format;
 
             var item = (0, _moment2.default)(val, nFormat, true);
+
             if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 
             if (onChange) onChange(item, name);
@@ -277,7 +278,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 readOnly = _props6.readOnly,
                 format = _props6.format,
                 icon = _props6.icon,
-                translations = _props6.translations;
+                translations = _props6.translations,
+                position = _props6.position;
             var _state2 = this.state,
                 selected = _state2.selected,
                 activeTab = _state2.activeTab,
@@ -287,10 +289,11 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 isValid = _state2.isValid;
 
             var inputValue = value ? value.format(format) : date ? date.format(format) : "";
-
             return _react2.default.createElement(
                 'div',
-                { style: style, className: (className || "") + " react-input-moment" },
+                { style: style, className: className, ref: function ref(node) {
+                        return _this2.node = node;
+                    } },
                 _react2.default.createElement(_input2.default, {
                     defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue },
                     onClick: this.inputClick,
@@ -300,7 +303,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 }),
                 isOpen && _react2.default.createElement(
                     'div',
-                    { className: 'react-input-moment r-input-moment', id: this._id },
+                    { className: 'r-input-moment', id: this._id, style: position === "bottom" ? {} : { display: "inline-block" } },
                     options && _react2.default.createElement(_options2.default, {
                         activeTab: activeTab,
                         onActiveTab: this.onActiveTab,
@@ -312,14 +315,14 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     ),
                     today && _react2.default.createElement(
                         'button',
-                        { className: 'react-input-moment im-btn btn-save ion-checkmark', onClick: function onClick() {
+                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
                                 _this2.onDayClick((0, _moment2.default)());
                             } },
                         translations.TODAY || "Today"
                     ),
                     onSave && _react2.default.createElement(
                         'button',
-                        { className: 'react-input-moment im-btn btn-save ion-checkmark', onClick: function onClick() {
+                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
                                 _this2.setState({ isOpen: false });onSave(date || selected, name);
                             } },
                         translations.SAVE || "Save"
@@ -384,6 +387,7 @@ MomentInput.defaultProps = {
     options: true,
     readOnly: true,
     monthSelect: true,
+    position: "bottom",
     today: false,
     translations: {},
     icon: false,
@@ -395,6 +399,7 @@ MomentInput.defaultProps = {
 MomentInput.propTypes = {
     name: _propTypes2.default.string,
     format: _propTypes2.default.string,
+    position: _propTypes2.default.string,
     readOnly: _propTypes2.default.bool,
     monthSelect: _propTypes2.default.bool,
     today: _propTypes2.default.bool,

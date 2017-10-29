@@ -121,15 +121,15 @@ export class MomentInput extends Component {
         if (onChange || onClose)
             window.addEventListener('click', this.onClose);
 
-        e.stopPropagation();
+       // e.stopPropagation();
     }
 
     onClose(e) {
-        const {onClose, name} = this.props;
-        let inputMoment = (e.target.className || "").indexOf("react-input-moment")!==-1;
-        if (inputMoment)
+        console.log(e.target);
+        if (this.node.contains(e.target))
             return;
 
+        const {onClose, name} = this.props;
         this.setState({isOpen: false});
         window.removeEventListener('click', this.onClose);
 
@@ -192,7 +192,9 @@ export class MomentInput extends Component {
         else
             nFormat = format;
 
+
         let item = moment(val, nFormat, true);
+
         if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes"))
             return this.setState({textValue: val, date: null, isValid: false});
 
@@ -235,12 +237,11 @@ export class MomentInput extends Component {
     }
 
     render() {
-        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations} = this.props;
+        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations, position} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
         let inputValue = value ? value.format(format) : (date ? date.format(format) : "");
-
         return (
-            <div style={style} className={(className || "") + " react-input-moment"}>
+            <div style={style} className={className} ref={node => this.node = node}>
                 <Input
                     defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue)}}
                     onClick={this.inputClick}
@@ -249,7 +250,7 @@ export class MomentInput extends Component {
                     style={inputStyle}
                 />
                 {isOpen &&
-                <div className="react-input-moment r-input-moment" id={this._id}>
+                <div className="r-input-moment" id={this._id} style={position === "bottom" ? {} : { display:"inline-block"}}>
                     {options && <Options
                         activeTab={activeTab}
                         onActiveTab={this.onActiveTab}
@@ -257,8 +258,8 @@ export class MomentInput extends Component {
                     <div className="tabs">
                         {this.renderTab()}
                     </div>
-                    {today && <button className="react-input-moment im-btn btn-save ion-checkmark" onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
-                    {onSave && <button className="react-input-moment im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
+                    {today && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
+                    {onSave && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
                 </div>}
             </div>
         );
@@ -271,6 +272,7 @@ MomentInput.defaultProps = {
     options: true,
     readOnly:true,
     monthSelect:true,
+    position:"bottom",
     today:false,
     translations: {},
     icon:false,
@@ -282,6 +284,7 @@ MomentInput.defaultProps = {
 MomentInput.propTypes = {
     name: PropTypes.string,
     format: PropTypes.string,
+    position: PropTypes.string,
     readOnly: PropTypes.bool,
     monthSelect: PropTypes.bool,
     today: PropTypes.bool,
