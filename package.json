@@ -1,6 +1,6 @@
 {
   "name": "react-moment-input",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "dependencies": {
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
