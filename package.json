@@ -1,10 +1,10 @@
 {
   "name": "react-moment-input",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "dependencies": {
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
-    "moment": "~2.18.1",
+    "moment": "^2.22.2",
     "react-input-mask": "^1.0.7",
     "react-input-slider": "^3.0.0"
   },
