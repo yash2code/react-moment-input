@@ -35,7 +35,7 @@ exports.default = function (_ref) {
             style: style,
             placeholder: defaults.format,
             value: defaults.value,
-            onClick: !defaults.icon ? onClick : null,
+            onClick: defaults.enableInputClick ? onClick : null,
             onChange: onTextChange,
             mask: setMask(defaults.format, defaults.readOnly),
             readOnly: defaults.readOnly }),

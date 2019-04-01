@@ -279,7 +279,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 format = _props6.format,
                 icon = _props6.icon,
                 translations = _props6.translations,
-                position = _props6.position;
+                position = _props6.position,
+                enableInputClick = _props6.enableInputClick;
             var _state2 = this.state,
                 selected = _state2.selected,
                 activeTab = _state2.activeTab,
@@ -295,7 +296,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                         return _this2.node = node;
                     } },
                 _react2.default.createElement(_input2.default, {
-                    defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue },
+                    defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue, enableInputClick: enableInputClick
+                    },
                     onClick: this.inputClick,
                     onTextChange: this.onTextChange,
                     className: inputClassName,
@@ -420,7 +422,8 @@ MomentInput.propTypes = {
     style: _propTypes2.default.object,
     className: _propTypes2.default.string,
     inputClassName: _propTypes2.default.string,
-    inputStyle: _propTypes2.default.object
+    inputStyle: _propTypes2.default.object,
+    enableInputClick: _propTypes2.default.bool
 };
 
 exports.default = MomentInput;
