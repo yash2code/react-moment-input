@@ -95,6 +95,18 @@ class App extends Component {
                       tab={2}
                       onChange={(date)=> {}} /></td>
               </tr>
+              <tr>
+                  <td>Open date picker on input click </td>
+                  <td><MomentInput
+                      format="YYYY-MM-DD"
+                      options={false}
+                      readOnly={false}
+                      today={true}
+                      enableInputClick
+                      icon={true}
+                      tab={2}
+                      onChange={(date)=> {}} /></td>
+              </tr>
               </tbody>
           </table>
           </div>

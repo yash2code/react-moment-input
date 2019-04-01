@@ -74,6 +74,7 @@ import MomentInput from 'react-moment-input';
 | onChange | `function` | Emit value on every click (value, name) | `undefined`
 | onSave | `function` | Emit value on save click (value, name)  | `undefined`
 | onClose | `function` | Emit value on picker close (value, name)  | `undefined`
+| enableInputClick | `boolean` | Show picker  | `undefined`
 
 ### Development
 - npm install
