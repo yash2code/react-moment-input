@@ -42,7 +42,7 @@ exports.default = function (_ref) {
         defaults.icon && _react2.default.createElement(
             'div',
             { style: { cursor: 'pointer', width: 'auto', display: 'table-cell', position: 'relative' }, className: 'r-input-group-addon', onClick: onClick },
-            _react2.default.createElement('i', { className: 'fa fa-calendar' })
+            _react2.default.createElement('i', { className: defaults.iconType || "fa fa-calendar" })
         )
     );
 };
