@@ -237,13 +237,13 @@ export class MomentInput extends Component {
     }
 
     render() {
-        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations, position, enableInputClick} = this.props;
+        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations, position, enableInputClick, iconType} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
         let inputValue = value ? value.format(format) : (date ? date.format(format) : "");
         return (
             <div style={style} className={className} ref={node => this.node = node}>
                 <Input
-                    defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue), enableInputClick,
+                    defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue), enableInputClick, iconType,
                     }}
                     onClick={this.inputClick}
                     onTextChange={this.onTextChange}
@@ -308,6 +308,7 @@ MomentInput.propTypes = {
     inputClassName: PropTypes.string,
     inputStyle: PropTypes.object,
     enableInputClick: PropTypes.bool,
+    iconType: PropTypes.string,
 };
 
 export default MomentInput;

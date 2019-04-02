@@ -75,6 +75,7 @@ import MomentInput from 'react-moment-input';
 | onSave | `function` | Emit value on save click (value, name)  | `undefined`
 | onClose | `function` | Emit value on picker close (value, name)  | `undefined`
 | enableInputClick | `boolean` | Show picker  | `undefined`
+| iconType | `string` | Render custom font icon if icon is set to true | `undefined`
 
 ### Development
 - npm install

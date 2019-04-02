@@ -82,6 +82,7 @@ class App extends Component {
                       readOnly={false}
                       icon={true}
                       tab={1}
+                      iconType="fa fa-clock-o"
                       onChange={(date)=> (value)=> {this.setState({value})}} /></td>
               </tr>
               <tr>
