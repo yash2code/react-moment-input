@@ -76,7 +76,7 @@ class App extends Component {
               <tr>
                   <td>Only time: </td>
                   <td><MomentInput
-                      format="HH:mm:ss"
+                      format="HH:mm:ss Z"
                       options={false}
                       value={this.state.value}
                       readOnly={false}

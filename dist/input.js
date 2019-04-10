@@ -17,8 +17,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function setMask(format, readOnly) {
     if (readOnly) return "";
 
-    var reg = new RegExp("y|m|d|h|s", "g");
-    return format.toLowerCase().replace(reg, "9");
+    var reg = new RegExp("Y|M|D|H|S", "g");
+    return format.toUpperCase().replace(reg, "9");
 }
 
 exports.default = function (_ref) {

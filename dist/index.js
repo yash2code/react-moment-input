@@ -107,14 +107,14 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 min = _props.min,
                 max = _props.max,
                 format = _props.format;
-
+            var isOpen = this.state.isOpen;
 
             if (this.defaultTime) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
 
             if (!this.isValid(min, max, date, date.format(format), false, "day")) return;
 
             this.setState({ date: date, selected: date, isValid: true });
-            if (this.props.onChange) this.props.onChange(date, this.props.name);
+            if (this.props.onChange) this.props.onChange(date, this.props.name, isOpen);
         }
     }, {
         key: 'onActiveTab',
@@ -137,7 +137,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 if (self.state.date) {
                     self.state.date.set(type, x);
 
-                    if (self.props.onChange) self.props.onChange(self.state.date, self.props.name);
+                    if (self.props.onChange) self.props.onChange(self.state.date, self.props.name, self.state.isOpen);
                 }
 
                 self.setState({
@@ -204,6 +204,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 min = _props4.min,
                 max = _props4.max,
                 format = _props4.format;
+            var isOpen = this.state.isOpen;
 
 
             var nFormat = void 0;
@@ -213,7 +214,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
             if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 
-            if (onChange) onChange(item, name);
+            if (onChange) onChange(item, name, isOpen);
 
             this.setState({ selected: item, date: item, textValue: val, isValid: true });
         }

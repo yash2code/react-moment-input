@@ -6,8 +6,8 @@ function setMask(format, readOnly) {
     if(readOnly)
         return "";
 
-    const reg = new RegExp("y|m|d|h|s", "g");
-    return format.toLowerCase().replace(reg, "9");
+    const reg = new RegExp("Y|M|D|H|S", "g");
+    return format.toUpperCase().replace(reg, "9");
 }
 
 export default ({defaults, onClick, onTextChange, className, style}) => (

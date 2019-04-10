@@ -56,7 +56,7 @@ export class MomentInput extends Component {
 
     onDayClick(date) {
         const {min, max, format} = this.props;
-
+        const{isOpen} = this.state;
         if(this.defaultTime)
             date = new moment(date.format("YYYY-MM-DD ") + this.defaultTime);
 
@@ -65,7 +65,7 @@ export class MomentInput extends Component {
 
         this.setState({date, selected: date, isValid: true});
         if (this.props.onChange)
-            this.props.onChange(date, this.props.name);
+            this.props.onChange(date, this.props.name,isOpen);
     }
 
     onActiveTab(tab) {
@@ -85,7 +85,7 @@ export class MomentInput extends Component {
                 self.state.date.set(type, x);
 
                 if (self.props.onChange)
-                    self.props.onChange(self.state.date, self.props.name);
+                    self.props.onChange(self.state.date, self.props.name,self.state.isOpen);
             }
 
             self.setState({
@@ -185,6 +185,7 @@ export class MomentInput extends Component {
         let val = e.target.value;
 
         const {onChange, name, min, max, format} = this.props;
+        const {isOpen} = this.state;
 
         let nFormat;
         if(format[format.length -1].toUpperCase()==="A")
@@ -199,7 +200,7 @@ export class MomentInput extends Component {
             return this.setState({textValue: val, date: null, isValid: false});
 
         if (onChange)
-            onChange(item, name);
+            onChange(item, name,isOpen);
 
         this.setState({selected: item, date: item, textValue: val, isValid: true});
     }
