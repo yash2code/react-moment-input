@@ -31,6 +31,8 @@ export class MomentInput extends Component {
         this.onSetTime = this.onSetTime.bind(this);
 
         this.inputClick = this.inputClick.bind(this);
+        this.closePicker = this.closePicker.bind(this);
+        this.closeOnBlur = this.closeOnBlur.bind(this);
         this.onClose = this.onClose.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.isDisabled = this.isDisabled.bind(this);
@@ -124,11 +126,7 @@ export class MomentInput extends Component {
        // e.stopPropagation();
     }
 
-    onClose(e) {
-        console.log(e.target);
-        if (this.node.contains(e.target))
-            return;
-
+    closePicker(){
         const {onClose, name} = this.props;
         this.setState({isOpen: false});
         window.removeEventListener('click', this.onClose);
@@ -136,6 +134,18 @@ export class MomentInput extends Component {
         const {date} = this.state;
         if (onClose)
             onClose(date, name);
+    }
+
+    closeOnBlur(e){
+        if (e.currentTarget.contains(e.relatedTarget))
+            return;
+        this.closePicker();
+    }
+
+    onClose(e) {
+        if (this.node.contains(e.target))
+            return;
+        this.closePicker();
     }
 
     get Years(){
@@ -252,7 +262,7 @@ export class MomentInput extends Component {
                     style={inputStyle}
                 />
                 {isOpen &&
-                <div className="r-input-moment" id={this._id} style={position === "bottom" ? {} : { display:"inline-block"}}>
+                <div className="r-input-moment" id={this._id} style={position === "bottom" ? {} : { display:"inline-block"}} onBlur={this.closeOnBlur} tabIndex={0}>
                     {options && <Options
                         activeTab={activeTab}
                         onActiveTab={this.onActiveTab}

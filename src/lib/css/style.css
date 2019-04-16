@@ -33,6 +33,14 @@
 .r-input-moment .tabs{margin-bottom:11px}
 .r-input-moment .btn-save{display:block;margin-top:10px;width:100%;background-color:#1385e5;padding:12px 0;text-align:center;color:#fff;font-size:16px;border-radius:3px}
 
+.r-calendar .prev-month:focus,.next-month:focus{
+     opacity: 0.5;
+ }
+
+.im-btn:focus{
+    opacity: 0.5;
+}
+
 .r-calendar .selected-day {
     background-color: #1385e5;
     color: #fff;
@@ -135,4 +143,7 @@
     width: 100%;
     opacity: 0;
     z-index: 1;
+}
+.react-textselect-input:focus{
+    opacity: 0.9;
 }
