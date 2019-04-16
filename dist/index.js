@@ -76,6 +76,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
         _this.onSetTime = _this.onSetTime.bind(_this);
 
         _this.inputClick = _this.inputClick.bind(_this);
+        _this.closePicker = _this.closePicker.bind(_this);
+        _this.closeOnBlur = _this.closeOnBlur.bind(_this);
         _this.onClose = _this.onClose.bind(_this);
         _this.onTextChange = _this.onTextChange.bind(_this);
         _this.isDisabled = _this.isDisabled.bind(_this);
@@ -177,11 +179,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
             // e.stopPropagation();
         }
     }, {
-        key: 'onClose',
-        value: function onClose(e) {
-            console.log(e.target);
-            if (this.node.contains(e.target)) return;
-
+        key: 'closePicker',
+        value: function closePicker() {
             var _props3 = this.props,
                 onClose = _props3.onClose,
                 name = _props3.name;
@@ -192,6 +191,18 @@ var MomentInput = exports.MomentInput = function (_Component) {
             var date = this.state.date;
 
             if (onClose) onClose(date, name);
+        }
+    }, {
+        key: 'closeOnBlur',
+        value: function closeOnBlur(e) {
+            if (e.currentTarget.contains(e.relatedTarget)) return;
+            this.closePicker();
+        }
+    }, {
+        key: 'onClose',
+        value: function onClose(e) {
+            if (this.node.contains(e.target)) return;
+            this.closePicker();
         }
     }, {
         key: 'onTextChange',
@@ -307,7 +318,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 }),
                 isOpen && _react2.default.createElement(
                     'div',
-                    { className: 'r-input-moment', id: this._id, style: position === "bottom" ? {} : { display: "inline-block" } },
+                    { className: 'r-input-moment', id: this._id, style: position === "bottom" ? {} : { display: "inline-block" }, onBlur: this.closeOnBlur, tabIndex: 0 },
                     options && _react2.default.createElement(_options2.default, {
                         activeTab: activeTab,
                         onActiveTab: this.onActiveTab,
