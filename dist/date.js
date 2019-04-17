@@ -37,7 +37,7 @@ exports.default = function (_ref) {
             { className: "toolbar" },
             _react2.default.createElement(
                 "button",
-                { className: "prev-month", onClick: add(-1, 'month') },
+                { className: "prev-month", onClick: add(-1, 'month'), tabIndex: -1 },
                 _react2.default.createElement("i", { className: "ion-md-arrow-dropleft" })
             ),
             _react2.default.createElement(
@@ -46,7 +46,7 @@ exports.default = function (_ref) {
                 replaceMonths(defaults.selected.format("MMMM YYYY"), translations),
                 defaults.monthSelect && _react2.default.createElement(
                     "select",
-                    { className: "react-textselect-input",
+                    { className: "react-textselect-input", tabIndex: -1,
                         onChange: function onChange(_ref2) {
                             var target = _ref2.target;
                             _onClick(defaults.selected.clone().month(target.value));
@@ -65,14 +65,14 @@ exports.default = function (_ref) {
             ),
             _react2.default.createElement(
                 "button",
-                { className: "next-month", onClick: add(1, 'month') },
+                { className: "next-month", onClick: add(1, 'month'), tabIndex: -1 },
                 _react2.default.createElement("i", { className: "ion-md-arrow-dropright" })
             ),
             _react2.default.createElement(
                 "button",
                 { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick(e) {
                         onActiveTab(2);e.stopPropagation();
-                    } },
+                    }, tabIndex: -1 },
                 _react2.default.createElement("i", { className: "fa fa-level-down", "aria-hidden": "true" })
             )
         ),

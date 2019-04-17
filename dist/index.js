@@ -201,7 +201,12 @@ var MomentInput = exports.MomentInput = function (_Component) {
     }, {
         key: 'onClose',
         value: function onClose(e) {
-            if (this.node.contains(e.target)) return;
+            var autoClose = this.props.autoClose;
+            if (this.node.contains(e.target) && !autoClose) {
+                return;
+            }
+            var activeElementId = document.activeElement.parentElement.id;
+            if (activeElementId !== 'input-container' && this.node.contains(e.target)) return;
             this.closePicker();
         }
     }, {
@@ -307,7 +312,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 'div',
                 { style: style, className: className, ref: function ref(node) {
                         return _this2.node = node;
-                    } },
+                    }, onBlur: this.closeOnBlur, id: 'input-container' },
                 _react2.default.createElement(_input2.default, {
                     defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue, enableInputClick: enableInputClick, iconType: iconType
                     },
@@ -318,7 +323,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 }),
                 isOpen && _react2.default.createElement(
                     'div',
-                    { className: 'r-input-moment', id: this._id, style: position === "bottom" ? {} : { display: "inline-block" }, onBlur: this.closeOnBlur, tabIndex: 0 },
+                    { className: 'r-input-moment', id: this._id, style: position === "bottom" ? {} : { display: "inline-block" }, tabIndex: -1 },
                     options && _react2.default.createElement(_options2.default, {
                         activeTab: activeTab,
                         onActiveTab: this.onActiveTab,
@@ -330,14 +335,14 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     ),
                     today && _react2.default.createElement(
                         'button',
-                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
+                        { className: 'im-btn btn-save ion-checkmark', tabIndex: -1, onClick: function onClick() {
                                 _this2.onDayClick((0, _moment2.default)());
                             } },
                         translations.TODAY || "Today"
                     ),
                     onSave && _react2.default.createElement(
                         'button',
-                        { className: 'im-btn btn-save ion-checkmark', onClick: function onClick() {
+                        { className: 'im-btn btn-save ion-checkmark', tabIndex: -1, onClick: function onClick() {
                                 _this2.setState({ isOpen: false });onSave(date || selected, name);
                             } },
                         translations.SAVE || "Save"
@@ -437,6 +442,7 @@ MomentInput.propTypes = {
     inputClassName: _propTypes2.default.string,
     inputStyle: _propTypes2.default.object,
     enableInputClick: _propTypes2.default.bool,
+    autoClose: _propTypes2.default.bool,
     iconType: _propTypes2.default.string
 };
 

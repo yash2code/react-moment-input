@@ -20,6 +20,7 @@ exports.default = function (_ref) {
         _react2.default.createElement(
             "button",
             {
+                tabIndex: -1,
                 className: "ion-ios-calendar im-btn" + (activeTab === 0 || activeTab === 2 ? " is-active" : ""),
                 onClick: function onClick() {
                     onActiveTab(0);
@@ -29,6 +30,7 @@ exports.default = function (_ref) {
         _react2.default.createElement(
             "button",
             {
+                tabIndex: -1,
                 className: "ion-ios-clock im-btn" + (activeTab === 1 ? " is-active" : ""),
                 onClick: function onClick() {
                     onActiveTab(1);

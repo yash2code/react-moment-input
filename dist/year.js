@@ -25,7 +25,7 @@ exports.default = function (_ref) {
             { className: "toolbar" },
             _react2.default.createElement(
                 "button",
-                { className: "prev-month", onClick: add(-12, 'year') },
+                { className: "prev-month", onClick: add(-12, 'year'), tabIndex: -1 },
                 _react2.default.createElement("i", { className: "ion-md-arrow-dropleft" })
             ),
             _react2.default.createElement(
@@ -35,14 +35,14 @@ exports.default = function (_ref) {
             ),
             _react2.default.createElement(
                 "button",
-                { className: "next-month", onClick: add(12, 'year') },
+                { className: "next-month", onClick: add(12, 'year'), tabIndex: -1 },
                 _react2.default.createElement("i", { className: "ion-md-arrow-dropright" })
             ),
             _react2.default.createElement(
                 "button",
                 { className: "next-month", style: { marginRight: "5px" }, onClick: function onClick(e) {
                         onActiveTab(0);e.stopPropagation();
-                    } },
+                    }, tabIndex: -1 },
                 _react2.default.createElement("i", { className: "fa fa-level-up" })
             )
         ),
