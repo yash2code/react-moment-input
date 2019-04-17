@@ -143,7 +143,12 @@ export class MomentInput extends Component {
     }
 
     onClose(e) {
-        if (this.node.contains(e.target))
+        const autoClose=this.props.autoClose;
+        if (this.node.contains(e.target) && !autoClose){
+            return;
+        }
+        const activeElementId=document.activeElement.parentElement.id;
+        if(activeElementId!=='input-container' && this.node.contains(e.target))
             return;
         this.closePicker();
     }
@@ -252,7 +257,7 @@ export class MomentInput extends Component {
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
         let inputValue = value ? value.format(format) : (date ? date.format(format) : "");
         return (
-            <div style={style} className={className} ref={node => this.node = node}>
+            <div style={style} className={className} ref={node => this.node = node} onBlur={this.closeOnBlur} id='input-container'>
                 <Input
                     defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue), enableInputClick, iconType,
                     }}
@@ -262,7 +267,7 @@ export class MomentInput extends Component {
                     style={inputStyle}
                 />
                 {isOpen &&
-                <div className="r-input-moment" id={this._id} style={position === "bottom" ? {} : { display:"inline-block"}} onBlur={this.closeOnBlur} tabIndex={0}>
+                <div className="r-input-moment" id={this._id} style={position === "bottom" ? {} : { display:"inline-block"}} tabIndex={-1}>
                     {options && <Options
                         activeTab={activeTab}
                         onActiveTab={this.onActiveTab}
@@ -270,8 +275,8 @@ export class MomentInput extends Component {
                     <div className="tabs">
                         {this.renderTab()}
                     </div>
-                    {today && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
-                    {onSave && <button className="im-btn btn-save ion-checkmark" onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
+                    {today && <button className="im-btn btn-save ion-checkmark" tabIndex={-1} onClick={()=> {this.onDayClick(moment())}}>{translations.TODAY || "Today"}</button>}
+                    {onSave && <button className="im-btn btn-save ion-checkmark" tabIndex={-1} onClick={()=> {this.setState({isOpen:false}); onSave(date || selected, name)}}>{translations.SAVE || "Save"}</button>}
                 </div>}
             </div>
         );
@@ -319,6 +324,7 @@ MomentInput.propTypes = {
     inputClassName: PropTypes.string,
     inputStyle: PropTypes.object,
     enableInputClick: PropTypes.bool,
+    autoClose: PropTypes.bool,
     iconType: PropTypes.string,
 };
 

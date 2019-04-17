@@ -14,12 +14,12 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 export default ({defaults, add, onActiveTab, onClick, isDisabled, translations}) => (
     <div className="r-calendar tab-m is-active">
         <div className="toolbar">
-            <button className="prev-month" onClick={add(-1, 'month')}>
+            <button className="prev-month" onClick={add(-1, 'month')} tabIndex={-1}>
                 <i className="ion-md-arrow-dropleft"></i>
             </button>
             <span className="current-date react-textselect" style={{marginRight:"-5px"}}>
                 {replaceMonths(defaults.selected.format("MMMM YYYY"), translations)}
-                {defaults.monthSelect && (<select className='react-textselect-input'
+                {defaults.monthSelect && (<select className='react-textselect-input' tabIndex={-1}
                         onChange={({target})=>{ onClick(defaults.selected.clone().month(target.value))}}
                         value={Number(defaults.selected.format("MM")) -1 }>
                 {MONTHS.map((x, index)=> (<option value={index}
@@ -28,10 +28,10 @@ export default ({defaults, add, onActiveTab, onClick, isDisabled, translations})
                                                   </option>))}
                 </select>)}
             </span>
-            <button className="next-month" onClick={add(1, 'month')}>
+            <button className="next-month" onClick={add(1, 'month')} tabIndex={-1}>
                 <i className="ion-md-arrow-dropright"></i>
             </button>
-            <button className="next-month" style={{marginRight:"5px"}} onClick={(e)=> {onActiveTab(2); e.stopPropagation();}}>
+            <button className="next-month" style={{marginRight:"5px"}} onClick={(e)=> {onActiveTab(2); e.stopPropagation();}} tabIndex={-1}>
                 <i className="fa fa-level-down" aria-hidden="true"></i>
             </button>
         </div>

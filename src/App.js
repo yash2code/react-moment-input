@@ -108,6 +108,33 @@ class App extends Component {
                       tab={2}
                       onChange={(date)=> {}} /></td>
               </tr>
+              <tr>
+                  <td>Auto close picker on time selection</td>
+                  <td><MomentInput
+                      format="HH:mm:ss Z"
+                      options={false}
+                      value={this.state.value}
+                      readOnly={false}
+                      icon={true}
+                      tab={1}
+                      autoClose
+                      enableInputClick
+                      iconType="fa fa-clock-o"
+                      onChange={(date)=> (value)=> {this.setState({value})}} /></td>
+              </tr>
+              <tr>
+                  <td>Auto close picker on date selection</td>
+                  <td><MomentInput
+                      format="YYYY-MM-DD"
+                      options={false}
+                      readOnly={false}
+                      today={true}
+                      enableInputClick
+                      autoClose
+                      icon={true}
+                      tab={2}
+                      onChange={(date)=> {}} /></td>
+              </tr>
               </tbody>
           </table>
           </div>
