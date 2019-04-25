@@ -468,6 +468,7 @@ MomentInput.defaultProps = {
     icon: false,
     format: "YYYY-MM-DD HH:mm",
     inputClassName: "r-input",
+    inputCustomControl: false,
     daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 };
 
@@ -501,7 +502,7 @@ MomentInput.propTypes = {
     iconType: _propTypes2.default.Object,
     onDecrease: _propTypes2.default.func,
     onIncrease: _propTypes2.default.func,
-    inputCustomControl: _propTypes2.default.boolean
+    inputCustomControl: _propTypes2.default.bool
 };
 
 exports.default = MomentInput;
