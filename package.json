@@ -3,6 +3,7 @@
   "version": "0.2.21",
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "input-material-ui": "^1.3.0",
     "ionicons": "^3.0.0",
     "moment": "^2.24.0",
     "react-input-mask": "^2.0.4",
