@@ -82,6 +82,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
         _this.onTextChange = _this.onTextChange.bind(_this);
         _this.isDisabled = _this.isDisabled.bind(_this);
         _this.add = _this.add.bind(_this);
+        _this.onDecrease = _this.onDecrease.bind(_this);
+        _this.onIncrease = _this.onIncrease.bind(_this);
         return _this;
     }
 
@@ -199,6 +201,56 @@ var MomentInput = exports.MomentInput = function (_Component) {
             this.closePicker();
         }
     }, {
+        key: 'onDecrease',
+        value: function onDecrease(date) {
+            if (this.props.onDecrease) {
+                this.props.onDecrease();
+                return;
+            }
+            var newDate = new _moment2.default(date, this.props.format);
+            var format = newDate.creationData().format.toString();
+
+            if (format.indexOf('ss') !== -1) {
+                newDate.subtract(1, 'seconds');
+            } else if (format.indexOf('mm') !== -1) {
+                newDate.subtract(1, 'minutes');
+            } else if (format.indexOf('hh') !== -1) {
+                newDate.subtract(1, 'hours');
+            } else if (format.indexOf('DD') !== -1) {
+                newDate.subtract(1, 'days');
+            } else if (format.indexOf('MM') !== -1) {
+                newDate.subtract(1, 'months');
+            } else if (format.indexOf('YY') !== -1) {
+                newDate.subtract(1, 'years');
+            }
+            this.onTextChange({ target: { value: newDate.format(this.props.format) } });
+        }
+    }, {
+        key: 'onIncrease',
+        value: function onIncrease(date) {
+            if (this.props.onIncrease) {
+                this.props.onIncrease();
+                return;
+            }
+            var newDate = new _moment2.default(date, this.props.format);
+            var format = newDate.creationData().format.toString();
+
+            if (format.indexOf('ss') !== -1) {
+                newDate.add(1, 'seconds');
+            } else if (format.indexOf('mm') !== -1) {
+                newDate.add(1, 'minutes');
+            } else if (format.indexOf('hh') !== -1) {
+                newDate.add(1, 'hours');
+            } else if (format.indexOf('DD') !== -1) {
+                newDate.add(1, 'days');
+            } else if (format.indexOf('MM') !== -1) {
+                newDate.add(1, 'months');
+            } else if (format.indexOf('YY') !== -1) {
+                newDate.add(1, 'years');
+            }
+            this.onTextChange({ target: { value: newDate.format(this.props.format) } });
+        }
+    }, {
         key: 'onClose',
         value: function onClose(e) {
             var autoClose = this.props.autoClose;
@@ -298,7 +350,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 translations = _props6.translations,
                 position = _props6.position,
                 enableInputClick = _props6.enableInputClick,
-                iconType = _props6.iconType;
+                iconType = _props6.iconType,
+                inputCustomControl = _props6.inputCustomControl;
             var _state2 = this.state,
                 selected = _state2.selected,
                 activeTab = _state2.activeTab,
@@ -307,16 +360,18 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 textValue = _state2.textValue,
                 isValid = _state2.isValid;
 
-            var inputValue = value ? value.format(format) : date ? date.format(format) : "";
+            var inputValue = (date ? date.format(format) : "") || (value ? value.format(format) : "");
             return _react2.default.createElement(
                 'div',
                 { style: style, className: className, ref: function ref(node) {
                         return _this2.node = node;
                     }, onBlur: this.closeOnBlur, id: 'input-container' },
                 _react2.default.createElement(_input2.default, {
-                    defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue, enableInputClick: enableInputClick, iconType: iconType
+                    defaults: { readOnly: readOnly, isValid: isValid, format: format, icon: icon, value: inputValue || textValue, enableInputClick: enableInputClick, iconType: iconType, inputCustomControl: inputCustomControl
                     },
                     onClick: this.inputClick,
+                    onDecrease: this.onDecrease,
+                    onIncrease: this.onIncrease,
                     onTextChange: this.onTextChange,
                     className: inputClassName,
                     style: inputStyle
@@ -443,7 +498,10 @@ MomentInput.propTypes = {
     inputStyle: _propTypes2.default.object,
     enableInputClick: _propTypes2.default.bool,
     autoClose: _propTypes2.default.bool,
-    iconType: _propTypes2.default.string
+    iconType: _propTypes2.default.Object,
+    onDecrease: _propTypes2.default.func,
+    onIncrease: _propTypes2.default.func,
+    inputCustomControl: _propTypes2.default.boolean
 };
 
 exports.default = MomentInput;
