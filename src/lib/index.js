@@ -37,6 +37,8 @@ export class MomentInput extends Component {
         this.onTextChange = this.onTextChange.bind(this);
         this.isDisabled = this.isDisabled.bind(this);
         this.add = this.add.bind(this);
+        this.onDecrease=this.onDecrease.bind(this);
+        this.onIncrease=this.onIncrease.bind(this);
     }
 
     componentDidMount() {
@@ -140,6 +142,64 @@ export class MomentInput extends Component {
         if (e.currentTarget.contains(e.relatedTarget))
             return;
         this.closePicker();
+    }
+
+    onDecrease(date){
+        if(this.props.onDecrease){
+            this.props.onDecrease();
+            return;
+        }
+        const newDate=new moment(date,this.props.format);
+        const format=newDate.creationData().format.toString();
+
+        if(format.indexOf('ss')!==-1){
+            newDate.subtract(1,'seconds');
+        }
+        else if(format.indexOf('mm')!==-1){
+            newDate.subtract(1,'minutes');
+        }
+        else if(format.indexOf('hh')!==-1){
+            newDate.subtract(1,'hours');
+        }
+        else if(format.indexOf('DD')!==-1){
+            newDate.subtract(1,'days');
+        }
+        else if(format.indexOf('MM')!==-1){
+            newDate.subtract(1,'months');
+        }
+        else if(format.indexOf('YY')!==-1){
+            newDate.subtract(1,'years');
+        }
+        this.onTextChange({target: {value: newDate.format(this.props.format)}});
+    }
+
+    onIncrease(date){
+        if(this.props.onIncrease){
+            this.props.onIncrease();
+            return;
+        }
+        const newDate=new moment(date,this.props.format);
+        const format=newDate.creationData().format.toString();
+
+        if(format.indexOf('ss')!==-1){
+            newDate.add(1,'seconds');
+        }
+        else if(format.indexOf('mm')!==-1){
+            newDate.add(1,'minutes');
+        }
+        else if(format.indexOf('hh')!==-1){
+            newDate.add(1,'hours');
+        }
+        else if(format.indexOf('DD')!==-1){
+            newDate.add(1,'days');
+        }
+        else if(format.indexOf('MM')!==-1){
+            newDate.add(1,'months');
+        }
+        else if(format.indexOf('YY')!==-1){
+            newDate.add(1,'years');
+        }
+        this.onTextChange({target: {value: newDate.format(this.props.format)}});
     }
 
     onClose(e) {
@@ -253,15 +313,17 @@ export class MomentInput extends Component {
     }
 
     render() {
-        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations, position, enableInputClick, iconType} = this.props;
+        const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations, position, enableInputClick, iconType, inputCustomControl} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
-        let inputValue = value ? value.format(format) : (date ? date.format(format) : "");
+        let inputValue = (date ? date.format(format) : "") || (value ? value.format(format) :"");
         return (
             <div style={style} className={className} ref={node => this.node = node} onBlur={this.closeOnBlur} id='input-container'>
                 <Input
-                    defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue), enableInputClick, iconType,
+                    defaults={{readOnly, isValid, format, icon, value:(inputValue || textValue), enableInputClick, iconType,inputCustomControl,
                     }}
                     onClick={this.inputClick}
+                    onDecrease={this.onDecrease}
+                    onIncrease={this.onIncrease}
                     onTextChange={this.onTextChange}
                     className={inputClassName}
                     style={inputStyle}
@@ -325,7 +387,10 @@ MomentInput.propTypes = {
     inputStyle: PropTypes.object,
     enableInputClick: PropTypes.bool,
     autoClose: PropTypes.bool,
-    iconType: PropTypes.string,
+    iconType: PropTypes.Object,
+    onDecrease: PropTypes.func,
+    onIncrease: PropTypes.func,
+    inputCustomControl: PropTypes.boolean,
 };
 
 export default MomentInput;

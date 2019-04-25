@@ -111,7 +111,7 @@ class App extends Component {
               <tr>
                   <td>Auto close picker on time selection</td>
                   <td><MomentInput
-                      format="HH:mm:ss Z"
+                      format="HH:mm:ss"
                       options={false}
                       value={this.state.value}
                       readOnly={false}
@@ -131,9 +131,25 @@ class App extends Component {
                       today={true}
                       enableInputClick
                       autoClose
+                      customInputControl
                       icon={true}
                       tab={2}
                       onChange={(date)=> {}} /></td>
+              </tr>
+              <tr>
+                  <td>Custom input controls</td>
+                  <td><MomentInput
+                      format="HH:mm:ss"
+                      options={false}
+                      value={this.state.value}
+                      readOnly={false}
+                      icon={true}
+                      tab={1}
+                      autoClose
+                      enableInputClick
+                      inputCustomControl
+                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
+                      onChange={(date)=> (value)=> {this.setState({value})}} /></td>
               </tr>
               </tbody>
           </table>

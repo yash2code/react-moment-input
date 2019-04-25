@@ -147,3 +147,8 @@
 .react-textselect-input:focus{
     opacity: 0.9;
 }
+.input-controls {
+    cursor: pointer;
+    padding: 0px 5px;
+    color:grey;
+}
