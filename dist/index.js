@@ -15,9 +15,9 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _moment = require('moment');
+var _momentTimezone = require('moment-timezone');
 
-var _moment2 = _interopRequireDefault(_moment);
+var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
 var _date = require('./date');
 
@@ -63,7 +63,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
 
         _this._id = Math.random().toString();
         _this.state = {
-            selected: (props.value || (0, _moment2.default)()).clone(),
+            selected: (props.value || (0, _momentTimezone2.default)()).clone(),
             activeTab: props.tab,
             date: props.value,
             textValue: "",
@@ -92,7 +92,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
         value: function componentDidMount() {
             this.defaultTime = this.props.defaultTime;
             var date = this.props.defaultValue;
-            if (this.props.defaultTime && date) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
+            if (this.props.defaultTime && date) date = new _momentTimezone2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
 
             if (date) this.setState({ date: date, selected: date });
         }
@@ -113,7 +113,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 format = _props.format;
             var isOpen = this.state.isOpen;
 
-            if (this.defaultTime) date = new _moment2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
+            if (this.defaultTime) date = new _momentTimezone2.default(date.format("YYYY-MM-DD ") + this.defaultTime);
 
             if (!this.isValid(min, max, date, date.format(format), false, "day")) return;
 
@@ -207,7 +207,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 this.props.onDecrease();
                 return;
             }
-            var newDate = new _moment2.default(date, this.props.format);
+            var newDate = new _momentTimezone2.default(date, this.props.format);
             var format = newDate.creationData().format.toString();
 
             if (format.indexOf('ss') !== -1) {
@@ -232,7 +232,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 this.props.onIncrease();
                 return;
             }
-            var newDate = new _moment2.default(date, this.props.format);
+            var newDate = new _momentTimezone2.default(date, this.props.format);
             var format = newDate.creationData().format.toString();
 
             if (format.indexOf('ss') !== -1) {
@@ -278,7 +278,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
             var nFormat = void 0;
             if (format[format.length - 1].toUpperCase() === "A") nFormat = format.replace("A", "").replace("a", "");else nFormat = format;
 
-            var item = (0, _moment2.default)(val, nFormat, true);
+            var item = (0, _momentTimezone2.default)(val, nFormat, true);
 
             if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 
@@ -391,7 +391,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     today && _react2.default.createElement(
                         'button',
                         { className: 'im-btn btn-save ion-checkmark', tabIndex: -1, onClick: function onClick() {
-                                _this2.onDayClick((0, _moment2.default)());
+                                _this2.onDayClick((0, _momentTimezone2.default)());
                             } },
                         translations.TODAY || "Today"
                     ),
