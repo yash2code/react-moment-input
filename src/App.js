@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import MomentInput from './lib';
 
 class App extends Component {
@@ -74,15 +74,17 @@ class App extends Component {
                       onChange={(date)=> {}} /></td>
               </tr>
               <tr>
-                  <td>Only time: </td>
+                  <td>Only time with timezone: </td>
                   <td><MomentInput
-                      format="HH:mm:ss Z"
+                      format="HH:mm:ss"
                       options={false}
-                      value={this.state.value}
+                      enableInputClick
+                      value={this.state.value.tz('America/New_York')}
                       readOnly={false}
                       icon={true}
+                      icon={true}
                       tab={1}
-                      iconType="fa fa-clock-o"
+                      iconType='fa fa-clock-o'
                       onChange={(date)=> (value)=> {this.setState({value})}} /></td>
               </tr>
               <tr>
@@ -104,7 +106,6 @@ class App extends Component {
                       readOnly={false}
                       today={true}
                       enableInputClick
-                      icon={true}
                       tab={2}
                       onChange={(date)=> {}} /></td>
               </tr>
@@ -119,7 +120,7 @@ class App extends Component {
                       tab={1}
                       autoClose
                       enableInputClick
-                      iconType="fa fa-clock-o"
+                      iconType='fa fa-calendar'
                       onChange={(date)=> (value)=> {this.setState({value})}} /></td>
               </tr>
               <tr>
@@ -131,7 +132,6 @@ class App extends Component {
                       today={true}
                       enableInputClick
                       autoClose
-                      customInputControl
                       icon={true}
                       tab={2}
                       onChange={(date)=> {}} /></td>
