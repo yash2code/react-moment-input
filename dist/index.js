@@ -317,10 +317,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 activeTab = _state2.activeTab,
                 date = _state2.date;
 
-            console.log('TAB SELECTED', selected.format());
-            console.log('TAB VALUE', value.format());
-            console.log('ON SAVE VISIBLE', onSave !== undefined);
-            var tabValue = onSave ? selected : value;
+            var tabValue = onSave ? selected : value ? value : selected;
             switch (activeTab) {
                 case 1:
                     return _react2.default.createElement(_time2.default, {
@@ -381,7 +378,6 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 isValid = _state3.isValid;
 
             var inputValue = onSave ? (date ? date.format(format) : "") || (value ? value.format(format) : "") : (value ? value.format(format) : "") || (date ? date.format(format) : "");
-            console.log('RENDERING', inputValue);
             return _react2.default.createElement(
                 'div',
                 { style: style, className: className, ref: function ref(node) {
