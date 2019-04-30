@@ -4,11 +4,11 @@ import InputSlider from 'react-input-slider';
 export default ({selected, onSetTime, translations, isAM}) => (
     <div className="r-time tab-m is-active" style={{paddingBottom:"10px"}}>
         <div className="showtime">
-            <span className="time">{selected.format(isAM ? "hh" :"HH")}</span>
+            <span className="time">{selected.format(isAM ? "hh Z" :"HH Z").split(' ')[0]}</span>
             <span className="separater">:</span>
-            <span className="time">{selected.format("mm")}</span>
+            <span className="time">{selected.format("mm Z").split(' ')[0]}</span>
             { isAM && (<span className="separater"></span>) }
-            { isAM && (<span className="time">{Number(selected.format("HH"))>= 12 ? "PM" : "AM"}</span>) }
+            { isAM && (<span className="time">{Number(selected.format("HH Z").split(' ')[0])>= 12 ? "PM" : "AM"}</span>) }
 
         </div>
         <div className="sliders">
@@ -18,7 +18,7 @@ export default ({selected, onSetTime, translations, isAM}) => (
             <InputSlider
                 className="u-slider u-slider-x u-slider-time"
                 axis="x"
-                x={Number(selected.format('HH'))}
+                x={Number(selected.format('HH Z').split(' ')[0])}
                 xmax={23}
                 onChange={onSetTime('hours')}
             />
@@ -28,7 +28,7 @@ export default ({selected, onSetTime, translations, isAM}) => (
             <InputSlider
                 className="u-slider u-slider-x u-slider-time"
                 axis="x"
-                x={Number(selected.format('mm'))}
+                x={Number(selected.format('mm Z').split(' ')[0])}
                 xmax={59}
                 onChange={onSetTime('minutes')}
             />

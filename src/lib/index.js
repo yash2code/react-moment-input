@@ -170,7 +170,8 @@ export class MomentInput extends Component {
         else if(format.indexOf('YY')!==-1){
             newDate.subtract(1,'years');
         }
-        this.onTextChange({target: {value: newDate.format(this.props.format)}});
+        const textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC' ? newDate.format(this.props.format):newDate.utc().format(this.props.format);
+        this.onTextChange({target: {value: textChangeValue}});
     }
 
     onIncrease(date){
@@ -199,7 +200,8 @@ export class MomentInput extends Component {
         else if(format.indexOf('YY')!==-1){
             newDate.add(1,'years');
         }
-        this.onTextChange({target: {value: newDate.format(this.props.format)}});
+        const textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC'? newDate.format(this.props.format):newDate.utc().format(this.props.format);
+        this.onTextChange({target: {value: textChangeValue}});
     }
 
     onClose(e) {
@@ -259,17 +261,24 @@ export class MomentInput extends Component {
     onTextChange(e) {
         let val = e.target.value;
 
-        const {onChange, name, min, max, format} = this.props;
-        const {isOpen} = this.state;
-
+        const {onChange, name, min, max, format,value,onSave} = this.props;
+        const {isOpen,date} = this.state;
+        const tz = (onSave?(date && date._z?date._z.name:'UTC'):(value && value._z?value._z.name:'UTC'));
         let nFormat;
         if(format[format.length -1].toUpperCase()==="A")
             nFormat = format.replace("A","").replace("a","");
         else
             nFormat = format;
 
+        if(nFormat.match(/H|h|m|s/g)){
+            nFormat = nFormat.split(' ')[0];
+            nFormat+= ' Z';
+            const tzOffset = moment().tz(tz).format('Z');
+            val = val.split(' ')[0];
+            val+=` ${tzOffset}`;//`
+        }
 
-        let item = moment(val, nFormat, true);
+        let item = moment(val, nFormat, true).tz(tz);
 
         if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes"))
             return this.setState({textValue: val, date: null, isValid: false});
@@ -281,19 +290,20 @@ export class MomentInput extends Component {
     }
 
     renderTab(){
-        const {min, max, translations, daysOfWeek, format, monthSelect} = this.props;
+        const {min, max, translations, daysOfWeek, format, monthSelect,value,onSave} = this.props;
         const {selected, activeTab, date} = this.state;
+        const tabValue = onSave?selected:(value?value:selected);
         switch (activeTab){
             case 1:
                 return (<TimePicker
-                    selected={selected}
+                    selected={tabValue}
                     onSetTime={this.onSetTime}
                     translations={translations}
                     isAM={format.indexOf("hh")!==-1}
                 />);
             case 2:
                 return (<YearPicker
-                    defaults={{selected, min, max, date, years: this.Years}}
+                    defaults={{selected:tabValue, min, max, date, years: this.Years}}
                     add={this.add}
                     onActiveTab={this.onActiveTab}
                     onClick={this.onDayClick}
@@ -302,7 +312,7 @@ export class MomentInput extends Component {
                 />);
             default:
                 return (<DatePicker
-                    defaults={{selected, min, max, date, monthSelect, days: this.Days, months: daysOfWeek}}
+                    defaults={{selected:tabValue, min, max, date, monthSelect, days: this.Days, months: daysOfWeek}}
                     add={this.add}
                     onActiveTab={this.onActiveTab}
                     onClick={this.onDayClick}
@@ -315,7 +325,7 @@ export class MomentInput extends Component {
     render() {
         const { options, onSave, today, value, style, className, inputClassName, inputStyle, name, readOnly, format, icon, translations, position, enableInputClick, iconType, inputCustomControl} = this.props;
         const {selected, activeTab, date, isOpen, textValue, isValid} = this.state;
-        let inputValue = (date ? date.format(format) : "") || (value ? value.format(format) :"");
+        let inputValue = onSave?((date ? date.format(format) : "") || (value ? value.format(format) :"")):((value ? value.format(format) :"") || (date ? date.format(format) : ""));
         return (
             <div style={style} className={className} ref={node => this.node = node} onBlur={this.closeOnBlur} id='input-container'>
                 <Input

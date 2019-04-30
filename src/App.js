@@ -9,7 +9,8 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: moment()
+            value: moment(),
+            tzValue : moment().tz('America/Los_Angeles')
         }
     }
   render() {
@@ -30,7 +31,7 @@ class App extends Component {
                       defaultTime="03:00"
                       options={true}
                       readOnly={false}
-                      onSave={(value)=> {this.setState({value})}} /></td>
+                      onSave={(value)=> {this.setState({value:value})}} /></td>
               </tr>
               <tr>
                   <td> Min and max date: </td>
@@ -74,20 +75,6 @@ class App extends Component {
                       onChange={(date)=> {}} /></td>
               </tr>
               <tr>
-                  <td>Only time with timezone: </td>
-                  <td><MomentInput
-                      format="HH:mm:ss"
-                      options={false}
-                      enableInputClick
-                      value={this.state.value.tz('America/New_York')}
-                      readOnly={false}
-                      icon={true}
-                      icon={true}
-                      tab={1}
-                      iconType='fa fa-clock-o'
-                      onChange={(date)=> (value)=> {this.setState({value})}} /></td>
-              </tr>
-              <tr>
                   <td>Year, calendar and today: </td>
                   <td><MomentInput
                       format="YYYY-MM-DD"
@@ -121,7 +108,7 @@ class App extends Component {
                       autoClose
                       enableInputClick
                       iconType='fa fa-calendar'
-                      onChange={(date)=> (value)=> {this.setState({value})}} /></td>
+                      onChange={(date)=> (value)=> {this.setState({value:value})}} /></td>
               </tr>
               <tr>
                   <td>Auto close picker on date selection</td>
@@ -137,11 +124,11 @@ class App extends Component {
                       onChange={(date)=> {}} /></td>
               </tr>
               <tr>
-                  <td>Custom input controls</td>
+                  <td>Custom input controls({this.state.tzValue.format('z')})</td>
                   <td><MomentInput
                       format="HH:mm:ss"
                       options={false}
-                      value={this.state.value}
+                      value={this.state.tzValue}
                       readOnly={false}
                       icon={true}
                       tab={1}
@@ -149,7 +136,23 @@ class App extends Component {
                       enableInputClick
                       inputCustomControl
                       iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(date)=> (value)=> {this.setState({value})}} /></td>
+                      onChange={(tzValue)=> {this.setState({tzValue:tzValue})}}/>
+                      </td>
+              </tr>
+              <tr>
+                  <td>Custom input controls({this.state.value.format('z')})</td>
+                  <td><MomentInput
+                      format="HH:mm:ss"
+                      options={false}
+                      value={this.state.value.clone()}
+                      readOnly={false}
+                      icon={true}
+                      tab={1}
+                      autoClose
+                      enableInputClick
+                      inputCustomControl
+                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
+                      onChange={(value)=> {this.setState({value:value})}} /></td>
               </tr>
               </tbody>
           </table>

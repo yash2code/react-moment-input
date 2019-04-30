@@ -223,7 +223,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
             } else if (format.indexOf('YY') !== -1) {
                 newDate.subtract(1, 'years');
             }
-            this.onTextChange({ target: { value: newDate.format(this.props.format) } });
+            var textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC' ? newDate.format(this.props.format) : newDate.utc().format(this.props.format);
+            this.onTextChange({ target: { value: textChangeValue } });
         }
     }, {
         key: 'onIncrease',
@@ -248,7 +249,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
             } else if (format.indexOf('YY') !== -1) {
                 newDate.add(1, 'years');
             }
-            this.onTextChange({ target: { value: newDate.format(this.props.format) } });
+            var textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC' ? newDate.format(this.props.format) : newDate.utc().format(this.props.format);
+            this.onTextChange({ target: { value: textChangeValue } });
         }
     }, {
         key: 'onClose',
@@ -271,14 +273,26 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 name = _props4.name,
                 min = _props4.min,
                 max = _props4.max,
-                format = _props4.format;
-            var isOpen = this.state.isOpen;
+                format = _props4.format,
+                value = _props4.value,
+                onSave = _props4.onSave;
+            var _state = this.state,
+                isOpen = _state.isOpen,
+                date = _state.date;
 
-
+            var tz = onSave ? date && date._z ? date._z.name : 'UTC' : value && value._z ? value._z.name : 'UTC';
             var nFormat = void 0;
             if (format[format.length - 1].toUpperCase() === "A") nFormat = format.replace("A", "").replace("a", "");else nFormat = format;
 
-            var item = (0, _momentTimezone2.default)(val, nFormat, true);
+            if (nFormat.match(/H|h|m|s/g)) {
+                nFormat = nFormat.split(' ')[0];
+                nFormat += ' Z';
+                var tzOffset = (0, _momentTimezone2.default)().tz(tz).format('Z');
+                val = val.split(' ')[0];
+                val += ' ' + tzOffset; //`
+            }
+
+            var item = (0, _momentTimezone2.default)(val, nFormat, true).tz(tz);
 
             if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 
@@ -295,23 +309,29 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 translations = _props5.translations,
                 daysOfWeek = _props5.daysOfWeek,
                 format = _props5.format,
-                monthSelect = _props5.monthSelect;
-            var _state = this.state,
-                selected = _state.selected,
-                activeTab = _state.activeTab,
-                date = _state.date;
+                monthSelect = _props5.monthSelect,
+                value = _props5.value,
+                onSave = _props5.onSave;
+            var _state2 = this.state,
+                selected = _state2.selected,
+                activeTab = _state2.activeTab,
+                date = _state2.date;
 
+            console.log('TAB SELECTED', selected.format());
+            console.log('TAB VALUE', value.format());
+            console.log('ON SAVE VISIBLE', onSave !== undefined);
+            var tabValue = onSave ? selected : value;
             switch (activeTab) {
                 case 1:
                     return _react2.default.createElement(_time2.default, {
-                        selected: selected,
+                        selected: tabValue,
                         onSetTime: this.onSetTime,
                         translations: translations,
                         isAM: format.indexOf("hh") !== -1
                     });
                 case 2:
                     return _react2.default.createElement(_year2.default, {
-                        defaults: { selected: selected, min: min, max: max, date: date, years: this.Years },
+                        defaults: { selected: tabValue, min: min, max: max, date: date, years: this.Years },
                         add: this.add,
                         onActiveTab: this.onActiveTab,
                         onClick: this.onDayClick,
@@ -320,7 +340,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                     });
                 default:
                     return _react2.default.createElement(_date2.default, {
-                        defaults: { selected: selected, min: min, max: max, date: date, monthSelect: monthSelect, days: this.Days, months: daysOfWeek },
+                        defaults: { selected: tabValue, min: min, max: max, date: date, monthSelect: monthSelect, days: this.Days, months: daysOfWeek },
                         add: this.add,
                         onActiveTab: this.onActiveTab,
                         onClick: this.onDayClick,
@@ -352,15 +372,16 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 enableInputClick = _props6.enableInputClick,
                 iconType = _props6.iconType,
                 inputCustomControl = _props6.inputCustomControl;
-            var _state2 = this.state,
-                selected = _state2.selected,
-                activeTab = _state2.activeTab,
-                date = _state2.date,
-                isOpen = _state2.isOpen,
-                textValue = _state2.textValue,
-                isValid = _state2.isValid;
+            var _state3 = this.state,
+                selected = _state3.selected,
+                activeTab = _state3.activeTab,
+                date = _state3.date,
+                isOpen = _state3.isOpen,
+                textValue = _state3.textValue,
+                isValid = _state3.isValid;
 
-            var inputValue = (date ? date.format(format) : "") || (value ? value.format(format) : "");
+            var inputValue = onSave ? (date ? date.format(format) : "") || (value ? value.format(format) : "") : (value ? value.format(format) : "") || (date ? date.format(format) : "");
+            console.log('RENDERING', inputValue);
             return _react2.default.createElement(
                 'div',
                 { style: style, className: className, ref: function ref(node) {

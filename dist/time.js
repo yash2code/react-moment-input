@@ -28,7 +28,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 'span',
                 { className: 'time' },
-                selected.format(isAM ? "hh" : "HH")
+                selected.format(isAM ? "hh Z" : "HH Z").split(' ')[0]
             ),
             _react2.default.createElement(
                 'span',
@@ -38,13 +38,13 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 'span',
                 { className: 'time' },
-                selected.format("mm")
+                selected.format("mm Z").split(' ')[0]
             ),
             isAM && _react2.default.createElement('span', { className: 'separater' }),
             isAM && _react2.default.createElement(
                 'span',
                 { className: 'time' },
-                Number(selected.format("HH")) >= 12 ? "PM" : "AM"
+                Number(selected.format("HH Z").split(' ')[0]) >= 12 ? "PM" : "AM"
             )
         ),
         _react2.default.createElement(
@@ -59,7 +59,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(_reactInputSlider2.default, {
                 className: 'u-slider u-slider-x u-slider-time',
                 axis: 'x',
-                x: Number(selected.format('HH')),
+                x: Number(selected.format('HH Z').split(' ')[0]),
                 xmax: 23,
                 onChange: onSetTime('hours')
             }),
@@ -72,7 +72,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(_reactInputSlider2.default, {
                 className: 'u-slider u-slider-x u-slider-time',
                 axis: 'x',
-                x: Number(selected.format('mm')),
+                x: Number(selected.format('mm Z').split(' ')[0]),
                 xmax: 59,
                 onChange: onSetTime('minutes')
             })
