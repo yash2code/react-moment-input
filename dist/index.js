@@ -207,7 +207,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 this.props.onDecrease();
                 return;
             }
-            var newDate = new _momentTimezone2.default(date, this.props.format);
+            var tz = this.props.value && this.props.value._z ? this.props.value._z.name : _momentTimezone2.default.tz.guess(true);
+            var newDate = new _momentTimezone2.default.tz(date, this.props.format, tz);
             var format = newDate.creationData().format.toString();
 
             if (format.indexOf('ss') !== -1) {
@@ -223,7 +224,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
             } else if (format.indexOf('YY') !== -1) {
                 newDate.subtract(1, 'years');
             }
-            var textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC' ? newDate.format(this.props.format) : newDate.utc().format(this.props.format);
+            var textChangeValue = newDate.format(this.props.format);
             this.onTextChange({ target: { value: textChangeValue } });
         }
     }, {
@@ -233,7 +234,8 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 this.props.onIncrease();
                 return;
             }
-            var newDate = new _momentTimezone2.default(date, this.props.format);
+            var tz = this.props.value && this.props.value._z ? this.props.value._z.name : _momentTimezone2.default.tz.guess(true);
+            var newDate = new _momentTimezone2.default.tz(date, this.props.format, tz);
             var format = newDate.creationData().format.toString();
 
             if (format.indexOf('ss') !== -1) {
@@ -249,7 +251,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
             } else if (format.indexOf('YY') !== -1) {
                 newDate.add(1, 'years');
             }
-            var textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC' ? newDate.format(this.props.format) : newDate.utc().format(this.props.format);
+            var textChangeValue = newDate.format(this.props.format);
             this.onTextChange({ target: { value: textChangeValue } });
         }
     }, {
@@ -280,19 +282,36 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 isOpen = _state.isOpen,
                 date = _state.date;
 
-            var tz = onSave ? date && date._z ? date._z.name : 'UTC' : value && value._z ? value._z.name : 'UTC';
+            var tz = onSave ? date && date._z ? date._z.name : _momentTimezone2.default.tz.guess(true) : value && value._z ? value._z.name : _momentTimezone2.default.tz.guess(true);
             var nFormat = void 0;
             if (format[format.length - 1].toUpperCase() === "A") nFormat = format.replace("A", "").replace("a", "");else nFormat = format;
 
-            if (nFormat.match(/H|h|m|s/g)) {
-                nFormat = nFormat.split(' ')[0];
-                nFormat += ' Z';
-                var tzOffset = (0, _momentTimezone2.default)().tz(tz).format('Z');
-                val = val.split(' ')[0];
-                val += ' ' + tzOffset; //`
-            }
-
-            var item = (0, _momentTimezone2.default)(val, nFormat, true).tz(tz);
+            //For date and time
+            /* if(nFormat.match(/H|h|m|s/g) && nFormat.match(/M|d|D|Y|y/g)){
+                 nFormat.replace('Z','').replace('L','');
+                 nFormat+= ' Z';
+                 const tzOffset = moment().tz(tz).format('Z');
+                 val+=` ${tzOffset}`;//`
+             }else{
+                 //For Time only
+                 if(nFormat.match(/H|h|m|s/g)){
+                     nFormat = nFormat.split(' ')[0];
+                     nFormat+= ' Z';
+                     const tzOffset = moment().tz(tz).format('Z');
+                     val = val.split(' ')[0];
+                     val+=` ${tzOffset}`;//`
+                 }
+                 //For Date only
+                 if(nFormat.match(/M|d|D|Y|y/g)){
+                     nFormat+= 'THH:mm:ss Z';
+                     const tzOffset = moment().tz(tz).format('Z');
+                     val+=`T00:00:00 ${tzOffset}`;//`
+                 }
+             }*/
+            var item = _momentTimezone2.default.tz(val, nFormat, tz);
+            var noTzItem = (0, _momentTimezone2.default)(val, nFormat, true);
+            console.log(noTzItem.format());
+            console.log(item.format());
 
             if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes")) return this.setState({ textValue: val, date: null, isValid: false });
 

@@ -149,7 +149,8 @@ export class MomentInput extends Component {
             this.props.onDecrease();
             return;
         }
-        const newDate=new moment(date,this.props.format);
+        const tz = this.props.value && this.props.value._z ? this.props.value._z.name:moment.tz.guess(true);
+        const newDate=new moment.tz(date,this.props.format,tz);
         const format=newDate.creationData().format.toString();
 
         if(format.indexOf('ss')!==-1){
@@ -170,7 +171,7 @@ export class MomentInput extends Component {
         else if(format.indexOf('YY')!==-1){
             newDate.subtract(1,'years');
         }
-        const textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC' ? newDate.format(this.props.format):newDate.utc().format(this.props.format);
+        const textChangeValue = newDate.format(this.props.format);
         this.onTextChange({target: {value: textChangeValue}});
     }
 
@@ -179,7 +180,8 @@ export class MomentInput extends Component {
             this.props.onIncrease();
             return;
         }
-        const newDate=new moment(date,this.props.format);
+        const tz = this.props.value && this.props.value._z ? this.props.value._z.name:moment.tz.guess(true);
+        const newDate=new moment.tz(date,this.props.format,tz);
         const format=newDate.creationData().format.toString();
 
         if(format.indexOf('ss')!==-1){
@@ -200,7 +202,7 @@ export class MomentInput extends Component {
         else if(format.indexOf('YY')!==-1){
             newDate.add(1,'years');
         }
-        const textChangeValue = this.props.value && this.props.value._z && this.props.value._z.name !== 'UTC'? newDate.format(this.props.format):newDate.utc().format(this.props.format);
+        const textChangeValue = newDate.format(this.props.format);
         this.onTextChange({target: {value: textChangeValue}});
     }
 
@@ -263,22 +265,39 @@ export class MomentInput extends Component {
 
         const {onChange, name, min, max, format,value,onSave} = this.props;
         const {isOpen,date} = this.state;
-        const tz = (onSave?(date && date._z?date._z.name:'UTC'):(value && value._z?value._z.name:'UTC'));
+        const tz = (onSave?(date && date._z?date._z.name:moment.tz.guess(true)):(value && value._z?value._z.name:moment.tz.guess(true)));
         let nFormat;
         if(format[format.length -1].toUpperCase()==="A")
             nFormat = format.replace("A","").replace("a","");
         else
             nFormat = format;
 
-        if(nFormat.match(/H|h|m|s/g)){
-            nFormat = nFormat.split(' ')[0];
+        //For date and time
+       /* if(nFormat.match(/H|h|m|s/g) && nFormat.match(/M|d|D|Y|y/g)){
+            nFormat.replace('Z','').replace('L','');
             nFormat+= ' Z';
             const tzOffset = moment().tz(tz).format('Z');
-            val = val.split(' ')[0];
             val+=` ${tzOffset}`;//`
-        }
-
-        let item = moment(val, nFormat, true).tz(tz);
+        }else{
+            //For Time only
+            if(nFormat.match(/H|h|m|s/g)){
+                nFormat = nFormat.split(' ')[0];
+                nFormat+= ' Z';
+                const tzOffset = moment().tz(tz).format('Z');
+                val = val.split(' ')[0];
+                val+=` ${tzOffset}`;//`
+            }
+            //For Date only
+            if(nFormat.match(/M|d|D|Y|y/g)){
+                nFormat+= 'THH:mm:ss Z';
+                const tzOffset = moment().tz(tz).format('Z');
+                val+=`T00:00:00 ${tzOffset}`;//`
+            }
+        }*/
+        let item = moment.tz(val, nFormat,tz);
+        const noTzItem = moment(val,nFormat,true);
+        console.log(noTzItem.format());
+        console.log(item.format());
 
         if (!item.isValid() || !this.isValid(min, max, item, val, false, "minutes"))
             return this.setState({textValue: val, date: null, isValid: false});
