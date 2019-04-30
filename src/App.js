@@ -9,7 +9,9 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: moment(),
+            value: moment().utc(),
+            timeValue: moment().utc(),
+            dateTimeValue: moment(),
             tzValue : moment().tz('America/New_York'),
             tzTimeValue : moment().tz('America/New_York')
         }
@@ -132,7 +134,6 @@ class App extends Component {
                       value={this.state.tzValue}
                       readOnly={false}
                       icon={true}
-                      tab={1}
                       autoClose
                       enableInputClick
                       inputCustomControl
@@ -156,19 +157,18 @@ class App extends Component {
                       onChange={(tzValue)=> {this.setState({tzTimeValue:tzValue})}} /></td>
               </tr>
               <tr>
-                  <td>Custom input controls({this.state.value.format('z')})</td>
+                  <td>Custom input controls({this.state.dateTimeValue.format('z')})</td>
                   <td><MomentInput
                       format="MM/DD/YYYY  HH:mm"
-                      options={false}
-                      value={this.state.value.clone()}
+                      options={true}
+                      value={this.state.dateTimeValue}
                       readOnly={false}
                       icon={true}
-                      tab={1}
                       autoClose
                       enableInputClick
                       inputCustomControl
                       iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(value)=> {this.setState({value:value})}} /></td>
+                      onChange={(dateTimeValue)=> {this.setState({dateTimeValue:dateTimeValue})}} /></td>
               </tr>
               <tr>
                   <td>Custom input controls({this.state.value.format('z')})</td>
@@ -178,7 +178,6 @@ class App extends Component {
                       value={this.state.value.clone()}
                       readOnly={false}
                       icon={true}
-                      tab={1}
                       autoClose
                       enableInputClick
                       inputCustomControl
@@ -190,7 +189,7 @@ class App extends Component {
                   <td><MomentInput
                       format="HH:mm"
                       options={false}
-                      value={this.state.value.clone()}
+                      value={this.state.timeValue.clone()}
                       readOnly={false}
                       icon={true}
                       tab={1}
@@ -198,7 +197,7 @@ class App extends Component {
                       enableInputClick
                       inputCustomControl
                       iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(value)=> {this.setState({value:value})}} /></td>
+                      onChange={(value)=> {this.setState({timeValue:value})}} /></td>
               </tr>
               </tbody>
           </table>

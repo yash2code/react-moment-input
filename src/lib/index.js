@@ -149,7 +149,7 @@ export class MomentInput extends Component {
             this.props.onDecrease();
             return;
         }
-        const tz = this.props.value && this.props.value._z ? this.props.value._z.name:moment.tz.guess(true);
+        const tz = this.props.value ? this.props.value.format('z'):moment.tz.guess(true);
         const newDate=new moment.tz(date,this.props.format,tz);
         const format=newDate.creationData().format.toString();
 
@@ -180,7 +180,7 @@ export class MomentInput extends Component {
             this.props.onIncrease();
             return;
         }
-        const tz = this.props.value && this.props.value._z ? this.props.value._z.name:moment.tz.guess(true);
+        const tz = this.props.value ? this.props.value.format('z'):moment.tz.guess(true);
         const newDate=new moment.tz(date,this.props.format,tz);
         const format=newDate.creationData().format.toString();
 

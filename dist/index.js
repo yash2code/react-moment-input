@@ -207,7 +207,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 this.props.onDecrease();
                 return;
             }
-            var tz = this.props.value && this.props.value._z ? this.props.value._z.name : _momentTimezone2.default.tz.guess(true);
+            var tz = this.props.value ? this.props.value.format('z') : _momentTimezone2.default.tz.guess(true);
             var newDate = new _momentTimezone2.default.tz(date, this.props.format, tz);
             var format = newDate.creationData().format.toString();
 
@@ -234,7 +234,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
                 this.props.onIncrease();
                 return;
             }
-            var tz = this.props.value && this.props.value._z ? this.props.value._z.name : _momentTimezone2.default.tz.guess(true);
+            var tz = this.props.value ? this.props.value.format('z') : _momentTimezone2.default.tz.guess(true);
             var newDate = new _momentTimezone2.default.tz(date, this.props.format, tz);
             var format = newDate.creationData().format.toString();
 
