@@ -212,9 +212,9 @@ var MomentInput = exports.MomentInput = function (_Component) {
             var format = newDate.creationData().format.toString();
 
             if (format.indexOf('ss') !== -1) {
-                newDate.subtract(1, 'seconds');
+                newDate.subtract(1, 'hours');
             } else if (format.indexOf('mm') !== -1) {
-                newDate.subtract(1, 'minutes');
+                newDate.subtract(1, 'hours');
             } else if (format.indexOf('hh') !== -1) {
                 newDate.subtract(1, 'hours');
             } else if (format.indexOf('DD') !== -1) {
@@ -239,9 +239,9 @@ var MomentInput = exports.MomentInput = function (_Component) {
             var format = newDate.creationData().format.toString();
 
             if (format.indexOf('ss') !== -1) {
-                newDate.add(1, 'seconds');
+                newDate.add(1, 'hours');
             } else if (format.indexOf('mm') !== -1) {
-                newDate.add(1, 'minutes');
+                newDate.add(1, 'hours');
             } else if (format.indexOf('hh') !== -1) {
                 newDate.add(1, 'hours');
             } else if (format.indexOf('DD') !== -1) {
