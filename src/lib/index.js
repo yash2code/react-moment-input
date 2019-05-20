@@ -211,7 +211,11 @@ export class MomentInput extends Component {
       return;
     }
     const activeElementId = document.activeElement.parentElement.id;
-    if (activeElementId !== "input-container" && this.node.contains(e.target))
+    if (
+      activeElementId !== "input-container" &&
+      this.node &&
+      this.node.contains(e.target)
+    )
       return;
     this.closePicker();
   }

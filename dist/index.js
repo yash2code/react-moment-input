@@ -262,7 +262,7 @@ var MomentInput = exports.MomentInput = function (_Component) {
         return;
       }
       var activeElementId = document.activeElement.parentElement.id;
-      if (activeElementId !== "input-container" && this.node.contains(e.target)) return;
+      if (activeElementId !== "input-container" && this.node && this.node.contains(e.target)) return;
       this.closePicker();
     }
   }, {
