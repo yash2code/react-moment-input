@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-import moment from 'moment-timezone';
-import MomentInput from './lib';
+import moment from "moment-timezone";
+import MomentInput from "./lib";
 
 class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: moment().utc(),
-            timeValue: moment().utc(),
-            dateTimeValue: moment(),
-            tzValue : moment().tz('America/New_York'),
-            tzTimeValue : moment().tz('America/New_York')
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: null,
+      value: moment().utc(),
+      timeValue: moment().utc(),
+      dateTimeValue: moment(),
+      tzValue: moment().tz("America/New_York"),
+      tzTimeValue: moment().tz("America/New_York")
+    };
+  }
+  handleStartDate = event => {
+    console.log(event.format("ddd,LL"));
+    this.setState({ startDate: event });
+  };
   render() {
     return (
       <div className="App">
@@ -23,186 +28,307 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">react-moment-input</h1>
         </header>
-          <table style={{margin:"0 auto"}}>
-              <tbody>
-              <tr>
-                  <td>Data picker simple: </td>
-                  <td><MomentInput
-                      inputStyle={{width:"201px"}}
-                      format="YYYY-MM-DD HH:mm"
-                      defaultValue={this.state.value}
-                      defaultTime="03:00"
-                      options={true}
-                      readOnly={false}
-                      onSave={(value)=> {this.setState({value:value})}} /></td>
-              </tr>
-              <tr>
-                  <td> Min and max date: </td>
-                  <td><MomentInput
-                      max={moment("2019-10-05 22:45")}
-                      min={moment()}
-                      format="YYYY-MM-DD hh:mm AA"
-                      translations={{HOURS:"Sati", MINUTES:"Minute",YEARS:"Godine", DATE:"Dani", TIME:"Vrijeme", MONTHS_OCTOBER:"Oktobar", DAYS_MON:"PON"}}
-                      options={true}
-                      readOnly={false}
-                      icon={true}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td> Different days order: </td>
-                  <td><MomentInput
-                      format="YYYY-MM-DD HH:mm"
-                      options={true}
-                      readOnly={true}
-                      daysOfWeek={['Mon','Tue','Wed','Thu','Fri','Sat','Sun']}
-                      icon={true}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td>Input disabled: </td>
-                  <td><MomentInput
-                      format="YYYY-MM-DD HH:mm"
-                      options={true}
-                      readOnly={true}
-                      icon={true}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td>Month select disabled: </td>
-                  <td><MomentInput
-                      format="YYYY-MM-DD"
-                      options={false}
-                      readOnly={false}
-                      monthSelect={false}
-                      icon={true}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td>Year, calendar and today: </td>
-                  <td><MomentInput
-                      format="YYYY-MM-DD"
-                      options={false}
-                      readOnly={false}
-                      today={true}
-                      icon={true}
-                      tab={2}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td>Open date picker on input click </td>
-                  <td><MomentInput
-                      format="YYYY-MM-DD"
-                      options={false}
-                      readOnly={false}
-                      today={true}
-                      enableInputClick
-                      tab={2}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td>Auto close picker on time selection</td>
-                  <td><MomentInput
-                      format="HH:mm:ss"
-                      options={false}
-                      value={this.state.value}
-                      readOnly={false}
-                      icon={true}
-                      tab={1}
-                      autoClose
-                      enableInputClick
-                      iconType='fa fa-calendar'
-                      onChange={(date)=> (value)=> {this.setState({value:value})}} /></td>
-              </tr>
-              <tr>
-                  <td>Auto close picker on date selection</td>
-                  <td><MomentInput
-                      format="YYYY-MM-DD"
-                      options={false}
-                      readOnly={false}
-                      today={true}
-                      enableInputClick
-                      autoClose
-                      icon={true}
-                      tab={2}
-                      onChange={(date)=> {}} /></td>
-              </tr>
-              <tr>
-                  <td>Custom input controls({this.state.tzValue.format('z')})</td>
-                  <td><MomentInput
-                      format="MM/DD/YYYY"
-                      options={false}
-                      value={this.state.tzValue}
-                      readOnly={false}
-                      icon={true}
-                      autoClose
-                      enableInputClick
-                      inputCustomControl
-                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(tzValue)=> {this.setState({tzValue:tzValue})}}/>
-                      </td>
-              </tr>
-              <tr>
-                  <td>Custom input controls({this.state.tzTimeValue.format('z')})</td>
-                  <td><MomentInput
-                      format="HH:mm"
-                      options={false}
-                      value={this.state.tzTimeValue}
-                      readOnly={false}
-                      icon={true}
-                      tab={1}
-                      autoClose
-                      enableInputClick
-                      inputCustomControl
-                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(tzValue)=> {this.setState({tzTimeValue:tzValue})}} /></td>
-              </tr>
-              <tr>
-                  <td>Custom input controls({this.state.dateTimeValue.format('z')})</td>
-                  <td><MomentInput
-                      format="MM/DD/YYYY  HH:mm"
-                      options={true}
-                      value={this.state.dateTimeValue}
-                      readOnly={false}
-                      icon={true}
-                      autoClose
-                      enableInputClick
-                      inputCustomControl
-                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(dateTimeValue)=> {this.setState({dateTimeValue:dateTimeValue})}} /></td>
-              </tr>
-              <tr>
-                  <td>Custom input controls({this.state.value.format('z')})</td>
-                  <td><MomentInput
-                      format="MM/DD/YYYY"
-                      options={false}
-                      value={this.state.value.clone()}
-                      readOnly={false}
-                      icon={true}
-                      autoClose
-                      enableInputClick
-                      inputCustomControl
-                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(value)=> {this.setState({value:value})}} /></td>
-              </tr>
-              <tr>
-                  <td>Custom input controls({this.state.value.format('z')})</td>
-                  <td><MomentInput
-                      format="HH:mm"
-                      options={false}
-                      value={this.state.timeValue.clone()}
-                      readOnly={false}
-                      icon={true}
-                      tab={1}
-                      autoClose
-                      enableInputClick
-                      inputCustomControl
-                      iconType={<i className='fa fa-calendar' style={{cursor: 'pointer', padding: '0px 5px',color:'grey'}}/>}
-                      onChange={(value)=> {this.setState({timeValue:value})}} /></td>
-              </tr>
-              </tbody>
-          </table>
-          </div>
-
+        <table style={{ margin: "0 auto" }}>
+          <tbody>
+            <tr>
+              <td>Data picker simple: </td>
+              <td>
+                <MomentInput
+                  inputStyle={{ width: "201px" }}
+                  format="YYYY-MM-DD HH:mm"
+                  defaultValue={this.state.value}
+                  defaultTime="03:00"
+                  options={true}
+                  readOnly={false}
+                  onSave={value => {
+                    this.setState({ value: value });
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td> Min and max date: </td>
+              <td>
+                <MomentInput
+                  max={moment("2019-10-05 22:45")}
+                  min={moment()}
+                  format="YYYY-MM-DD hh:mm AA"
+                  translations={{
+                    HOURS: "Sati",
+                    MINUTES: "Minute",
+                    YEARS: "Godine",
+                    DATE: "Dani",
+                    TIME: "Vrijeme",
+                    MONTHS_OCTOBER: "Oktobar",
+                    DAYS_MON: "PON"
+                  }}
+                  options={true}
+                  readOnly={false}
+                  icon={true}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td> Different days order: </td>
+              <td>
+                <MomentInput
+                  format="YYYY-MM-DD HH:mm"
+                  options={true}
+                  readOnly={true}
+                  daysOfWeek={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+                  icon={true}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Input disabled: </td>
+              <td>
+                <MomentInput
+                  format="YYYY-MM-DD HH:mm"
+                  options={true}
+                  readOnly={true}
+                  icon={true}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Month select disabled: </td>
+              <td>
+                <MomentInput
+                  format="YYYY-MM-DD"
+                  options={false}
+                  readOnly={false}
+                  monthSelect={false}
+                  icon={true}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Year, calendar and today: </td>
+              <td>
+                <MomentInput
+                  format="YYYY-MM-DD"
+                  options={false}
+                  readOnly={false}
+                  today={true}
+                  icon={true}
+                  tab={2}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Open date picker on input click </td>
+              <td>
+                <MomentInput
+                  format="YYYY-MM-DD"
+                  options={true}
+                  readOnly={false}
+                  //   today={true}
+                  enableInputClick
+                  //   tab={2}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Auto close picker on time selection</td>
+              <td>
+                <MomentInput
+                  format="HH:mm:ss"
+                  options={false}
+                  value={this.state.value}
+                  readOnly={false}
+                  icon={true}
+                  tab={1}
+                  autoClose
+                  enableInputClick
+                  iconType="fa fa-calendar"
+                  onChange={date => value => {
+                    this.setState({ value: value });
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Auto close picker on date selection</td>
+              <td>
+                <MomentInput
+                  format="YYYY-MM-DD"
+                  options={false}
+                  readOnly={false}
+                  today={true}
+                  enableInputClick
+                  autoClose
+                  icon={true}
+                  tab={2}
+                  onChange={date => {}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Custom input controls({this.state.tzValue.format("z")})</td>
+              <td>
+                <MomentInput
+                  format="MM/DD/YYYY"
+                  options={false}
+                  value={this.state.tzValue}
+                  readOnly={false}
+                  icon={true}
+                  autoClose
+                  enableInputClick
+                  inputCustomControl
+                  iconType={
+                    <i
+                      className="fa fa-calendar"
+                      style={{
+                        cursor: "pointer",
+                        padding: "0px 5px",
+                        color: "grey"
+                      }}
+                    />
+                  }
+                  onChange={tzValue => {
+                    this.setState({ tzValue: tzValue });
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Custom input controls({this.state.tzTimeValue.format("z")})
+              </td>
+              <td>
+                <MomentInput
+                  format="HH:mm"
+                  options={false}
+                  value={this.state.tzTimeValue}
+                  readOnly={false}
+                  icon={true}
+                  tab={1}
+                  autoClose
+                  enableInputClick
+                  inputCustomControl
+                  iconType={
+                    <i
+                      className="fa fa-calendar"
+                      style={{
+                        cursor: "pointer",
+                        padding: "0px 5px",
+                        color: "grey"
+                      }}
+                    />
+                  }
+                  onChange={tzValue => {
+                    this.setState({ tzTimeValue: tzValue });
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Custom input controls({this.state.dateTimeValue.format("z")})
+              </td>
+              <td>
+                <MomentInput
+                  format="MM/DD/YYYY  HH:mm"
+                  options={true}
+                  value={this.state.dateTimeValue}
+                  readOnly={false}
+                  icon={true}
+                  autoClose
+                  enableInputClick
+                  inputCustomControl
+                  iconType={
+                    <i
+                      className="fa fa-calendar"
+                      style={{
+                        cursor: "pointer",
+                        padding: "0px 5px",
+                        color: "grey"
+                      }}
+                    />
+                  }
+                  onChange={dateTimeValue => {
+                    this.setState({ dateTimeValue: dateTimeValue });
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Custom input controls({this.state.value.format("z")})</td>
+              <td>
+                <MomentInput
+                  format="MM/DD/YYYY"
+                  options={false}
+                  value={this.state.value.clone()}
+                  readOnly={false}
+                  icon={true}
+                  autoClose
+                  enableInputClick
+                  inputCustomControl
+                  iconType={
+                    <i
+                      className="fa fa-calendar"
+                      style={{
+                        cursor: "pointer",
+                        padding: "0px 5px",
+                        color: "grey"
+                      }}
+                    />
+                  }
+                  onChange={value => {
+                    this.setState({ value: value });
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Custom input controls({this.state.value.format("z")})</td>
+              <td>
+                <MomentInput
+                  format="HH:mm"
+                  options={false}
+                  value={this.state.timeValue.clone()}
+                  readOnly={false}
+                  icon={true}
+                  tab={1}
+                  autoClose
+                  enableInputClick
+                  inputCustomControl
+                  iconType={
+                    <i
+                      className="fa fa-calendar"
+                      style={{
+                        cursor: "pointer",
+                        padding: "0px 5px",
+                        color: "grey"
+                      }}
+                    />
+                  }
+                  onChange={value => {
+                    this.setState({ timeValue: value });
+                  }}
+                />
+              </td>
+            </tr>
+            <MomentInput
+              format="MM/DD/YYYY  HH:mm"
+              options={true}
+              value={null}
+              readOnly={false}
+              //   icon={true}
+              //   autoClose
+              enableInputClick
+              onChange={this.handleStartDate}
+            />
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
